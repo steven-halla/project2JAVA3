@@ -1,0 +1,30 @@
+Species Model:
+
+Name of species -type string
+get name
+edit name
+
+Genus - type string
+pOpulation - type int
+diet - string
+habitat - string
+predator - string
+
+Need Add , edit, delete, view
+
+delete is part of mysql
+add is part of mysql
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Need add button
+need edit button
+need delte buton
+need exit button
+
+new text- open up new species txt file
+print-print form
+print form - prints form
+exit
+
+
