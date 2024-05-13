@@ -4,6 +4,7 @@ Name of species -type string
 get name
 edit name
 
+name - type string
 Genus - type string
 pOpulation - type int
 diet - string
