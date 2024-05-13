@@ -13,7 +13,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import static project2species.MySQLConnection.DB_URL;
 import static project2species.MySQLConnection.PASS;
 import static project2species.MySQLConnection.USER;
@@ -28,9 +31,15 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
       private int currentName = 1, sizeOfDB;
 
 
+
  
     public Project2SpeciesGUI() {
         initComponents();
+        updateSpeciesListJList(); // Populate the JList after the GUI is set up
+        speciesSelector();  // Set up the listener after initializing components
+
+
+
         readFromTextFile(SPECIES_TEXT_FILE);
         createDB();
         String url = DB_URL;
@@ -44,7 +53,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     private void initComponents() {
 
         jCheckBox1 = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        speciesListJjScrollPane = new javax.swing.JScrollPane();
+        speciesListJList = new javax.swing.JList<>();
         bottomButtonsJPanel = new javax.swing.JPanel();
         addJButton = new javax.swing.JButton();
         editJButton = new javax.swing.JButton();
@@ -69,6 +79,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        speciesListJjScrollPane.setViewportView(speciesListJList);
 
         addJButton.setText("Add");
 
@@ -217,7 +229,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(bottomButtonsJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(speciesListJjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(57, 57, 57)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
@@ -238,7 +250,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
                         .addComponent(imageMainJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(speciesListJjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bottomButtonsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,6 +261,33 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    
+    private ArrayList<String> fetchSpeciesNames() {
+    ArrayList<String> names = new ArrayList<>();
+    String query = "SELECT name FROM SpeciesTable";  // Adjust if your column name differs
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+        
+        while (rs.next()) {
+            names.add(rs.getString("name"));
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return names;
+}
+
+    private void updateSpeciesListJList() {
+    DefaultListModel<String> model = new DefaultListModel<>();
+    ArrayList<String> speciesNames = fetchSpeciesNames();
+    for (String name : speciesNames) {
+        model.addElement(name);
+    }
+    speciesListJList.setModel(model);
+}
+
     
      private void createDB()
             
@@ -340,6 +379,44 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     }
 }
 
+     private void speciesSelector() {
+    System.out.println("Number of Species in the list: " + speciesListJList.getModel().getSize());
+
+    speciesListJList.addListSelectionListener(new ListSelectionListener() {
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+                String selectedSpeciesDetails = speciesListJList.getSelectedValue();
+                if (selectedSpeciesDetails != null) {
+                    // Assuming each species detail is split by comma and the first entry is the name
+                    String[] details = selectedSpeciesDetails.split(",");
+                    String selectedSpeciesName = details[0];
+
+                    // Optionally, you can find and use the Species object if you have a method to do so
+                    Species selectedSpecies = findSpeciesByName(selectedSpeciesName);
+                    if (selectedSpecies != null) {
+                        System.out.println("Selected Species Info: " + selectedSpecies);
+                    } else {
+                        System.out.println("Species not found in the list");
+                    }
+                }
+            }
+        }
+    });
+}
+
+private Species findSpeciesByName(String name) {
+    // Assuming 'animals' is an ArrayList<Species> storing all species
+    for (Species species : animals) {
+        if (species.getName().equals(name)) {
+            return species;
+        }
+    }
+    return null;  // Return null if no match is found
+}
+
+     
+    
+
     
     private void GenusJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenusJTextFieldActionPerformed
         // TODO add your handling code here:
@@ -391,8 +468,9 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JLabel populationJLabel;
+    private javax.swing.JList<String> speciesListJList;
+    private javax.swing.JScrollPane speciesListJjScrollPane;
     // End of variables declaration//GEN-END:variables
 }
