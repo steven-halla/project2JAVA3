@@ -1,0 +1,5 @@
+African Elephant,Loxodonta,415000,Herbivore,Savannah,Lion
+Blue Whale,Balaenoptera musculus,10000,Carnivore,Ocean,Orca
+Giant Panda,Ailuropoda melanoleuca,1864,Herbivore,Bamboo Forests,Leopard
+Bald Eagle,Haliaeetus leucocephalus,70000,Carnivore,Forests,Human
+

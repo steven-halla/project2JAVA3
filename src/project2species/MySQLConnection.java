@@ -18,7 +18,7 @@ package project2species;
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 public interface MySQLConnection {
     //jdbc:mysql://localhost:3306/javabook?zeroDateTimeBehavior=CONVERT_TO_NULL// this url is not working
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/javaproject2";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/speciesDB";
     public static final String USER = "root";
     public static final String PASS = "steve";
     public static final String MYSQL_DRIVER = "com.mysql.cj.jdbc.Driver";

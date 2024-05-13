@@ -1,12 +1,41 @@
 
 package project2species;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import javax.swing.JOptionPane;
+import static project2species.MySQLConnection.DB_URL;
+import static project2species.MySQLConnection.PASS;
+import static project2species.MySQLConnection.USER;
+
 
 public class Project2SpeciesGUI extends javax.swing.JFrame {
+    
+    
+    private final String SPECIES_TEXT_FILE = "src/project2species/SpeciesList.txt";
+    private  ArrayList<Species> animals = new ArrayList<Species>();
+    private Species myPerson = new Species();
+      private int currentName = 1, sizeOfDB;
+
 
  
     public Project2SpeciesGUI() {
         initComponents();
+        readFromTextFile(SPECIES_TEXT_FILE);
+        createDB();
+        String url = DB_URL;
+        String user = USER;
+        String password = PASS;
     }
 
    
@@ -219,6 +248,99 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+     private void createDB()
+            
+    {   
+        try
+        {            
+            String url = DB_URL;
+            String user = USER;
+            String password = PASS;
+            Connection con = DriverManager.getConnection(url, user, password);
+            Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            DatabaseMetaData dbm = con.getMetaData();
+            ResultSet table;
+            
+            table = dbm.getTables(null, null, "SpeciesTable", null);
+           if (table.next()) {
+        stmt.executeUpdate("DROP TABLE SpeciesTable");
+    }
+
+    // Create a new "SpeciesTable" with appropriate columns for the Species model
+    stmt.executeUpdate("CREATE TABLE SpeciesTable (speciesID SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, "
+            + "name VARCHAR(50), genus VARCHAR(50), population INT, diet VARCHAR(50), "
+            + "habitat VARCHAR(50), predators VARCHAR(50), PRIMARY KEY (speciesID))");
+
+    // Assuming 'speciesList' is a List<Species> containing all the species data
+    for (Species species : animals) {
+        // Prepare and execute the SQL INSERT statement for each species
+        String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES ('"
+                + species.getName() + "', '"
+                + species.getGenus() + "', "
+                + species.getPopulation() + ", '"
+                + species.getDiet() + "', '"
+                + species.getHabitat() + "', '"
+                + species.getPredators() + "')";
+        stmt.executeUpdate(sql);
+    }
+
+            stmt.close();
+        }
+        catch(SQLException exp)
+        {
+//            exp.printStackTrace();
+            JOptionPane.showMessageDialog(null, "SQL error",
+                    "SQL Error!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     
+     
+     
+     private void readFromTextFile(String textFile)
+{
+    try
+    {
+        FileReader freader = new FileReader(textFile);
+        BufferedReader input = new BufferedReader(freader);
+        String line = input.readLine();
+
+        while (line != null)
+        {
+            Species tempSpecies = new Species();
+            StringTokenizer token = new StringTokenizer(line, ",");
+            while (token.hasMoreElements())
+            {
+                tempSpecies.setName(token.nextToken());
+                tempSpecies.setGenus(token.nextToken());
+                tempSpecies.setPopulation(Integer.parseInt(token.nextToken()));
+                tempSpecies.setDiet(token.nextToken());
+                tempSpecies.setHabitat(token.nextToken());
+                tempSpecies.setPredators(token.nextToken());
+            }
+            animals.add(tempSpecies); // Assuming speciesList is already declared
+            line = input.readLine();
+        }
+        input.close();
+    }
+    catch (FileNotFoundException fnfexp)
+    {
+        fnfexp.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Input error -- File not found.",
+                "File Not Found Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    catch (IOException | NumberFormatException exp)
+    {
+        // You might decide whether to print stack trace based on the need for debugging
+        // exp.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Input error -- File could not be read or data is improperly formatted.",
+                "File Read Error!", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
     private void GenusJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenusJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GenusJTextFieldActionPerformed
