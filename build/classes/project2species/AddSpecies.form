@@ -28,16 +28,24 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jLabel2" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="predatorsJTextField" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel2" min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="addPredatorsJTextField" min="-2" pref="165" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="controlJPanel" min="-2" pref="337" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="controlJPanel" min="-2" pref="337" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="addTitleJLabel" min="-2" pref="182" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
@@ -53,10 +61,12 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace pref="301" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <Component id="addTitleJLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="263" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="predatorsJTextField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="addPredatorsJTextField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
@@ -97,7 +107,7 @@
             <Property name="text" type="java.lang.String" value="Name of Species:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="nameJTextField">
+        <Component class="javax.swing.JTextField" name="addNameJTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -105,8 +115,8 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nameJTextFieldFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="nameJTextFieldFocusLost"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addNameJTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addNameJTextFieldFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lastJLabel">
@@ -118,7 +128,7 @@
             <Property name="text" type="java.lang.String" value="Genus:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="genusJTextField">
+        <Component class="javax.swing.JTextField" name="addGenusJTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -126,8 +136,8 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="genusJTextFieldFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="genusJTextFieldFocusLost"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addGenusJTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addGenusJTextFieldFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="ageJLabel">
@@ -139,7 +149,7 @@
             <Property name="text" type="java.lang.String" value="Population:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="populationJTextField">
+        <Component class="javax.swing.JTextField" name="addPopulationJTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -147,8 +157,8 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="populationJTextFieldFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="populationJTextFieldFocusLost"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPopulationJTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPopulationJTextFieldFocusLost"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="addressJLabel">
@@ -160,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Diet:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dietJTextField">
+        <Component class="javax.swing.JTextField" name="addDietJTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -177,7 +187,7 @@
             <Property name="text" type="java.lang.String" value="Habitat:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="habitatJTextField">
+        <Component class="javax.swing.JTextField" name="addHabitatJTextField">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="14" style="0"/>
@@ -185,8 +195,8 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="habitatJTextFieldFocusGained"/>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="habitatJTextFieldFocusLost"/>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addHabitatJTextFieldFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addHabitatJTextFieldFocusLost"/>
           </Events>
         </Component>
       </SubComponents>
@@ -237,16 +247,21 @@
         <Property name="text" type="java.lang.String" value="Predators:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="predatorsJTextField">
+    <Component class="javax.swing.JTextField" name="addPredatorsJTextField">
       <Events>
-        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="predatorsJTextFieldFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="predatorsJTextFieldFocusLost"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="predatorsJTextFieldActionPerformed"/>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPredatorsJTextFieldFocusGained"/>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPredatorsJTextFieldFocusLost"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPredatorsJTextFieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Predators:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="addTitleJLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add Player"/>
       </Properties>
     </Component>
   </SubComponents>

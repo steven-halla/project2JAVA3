@@ -1,6 +1,18 @@
 package project2species;
+import static com.mysql.cj.conf.PropertyKey.PASSWORD;
+
+
 import java.awt.Color;
+import java.sql.Connection; // Correct import for Connection
+import java.sql.DriverManager;
 import javax.swing.JOptionPane;
+import static project2species.MySQLConnection.DB_URL;
+import static project2species.MySQLConnection.USER;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+
+
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class        AddPerson.java
  * Description  A class used to both add and edit a person into the DB.
@@ -59,12 +71,12 @@ public class AddSpecies extends javax.swing.JDialog
 public AddSpecies(Species species) {
     this(); // Call default constructor to build GUI
     mySpecies = species;
-    nameJTextField.setText(species.getName());
-    genusJTextField.setText(species.getGenus());
-    populationJTextField.setText(String.valueOf(species.getPopulation()));
-    dietJTextField.setText(species.getDiet());
-    habitatJTextField.setText(species.getHabitat());
-    predatorsJTextField.setText(species.getPredators()); // Adding predators field
+    addNameJTextField.setText(species.getName());
+    addGenusJTextField.setText(species.getGenus());
+    addPopulationJTextField.setText(String.valueOf(species.getPopulation()));
+    addDietJTextField.setText(species.getDiet());
+    addHabitatJTextField.setText(species.getHabitat());
+    addPredatorsJTextField.setText(species.getPredators()); // Adding predators field
 
 }
 
@@ -111,21 +123,22 @@ public AddSpecies(Species species) {
 
         displayJPanel = new javax.swing.JPanel();
         firstJLabel = new javax.swing.JLabel();
-        nameJTextField = new javax.swing.JTextField();
+        addNameJTextField = new javax.swing.JTextField();
         lastJLabel = new javax.swing.JLabel();
-        genusJTextField = new javax.swing.JTextField();
+        addGenusJTextField = new javax.swing.JTextField();
         ageJLabel = new javax.swing.JLabel();
-        populationJTextField = new javax.swing.JTextField();
+        addPopulationJTextField = new javax.swing.JTextField();
         addressJLabel = new javax.swing.JLabel();
-        dietJTextField = new javax.swing.JTextField();
+        addDietJTextField = new javax.swing.JTextField();
         cityJLabel = new javax.swing.JLabel();
-        habitatJTextField = new javax.swing.JTextField();
+        addHabitatJTextField = new javax.swing.JTextField();
         controlJPanel = new javax.swing.JPanel();
         addJButton = new javax.swing.JButton();
         quitJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        predatorsJTextField = new javax.swing.JTextField();
+        addPredatorsJTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        addTitleJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Employee Add Form");
@@ -139,77 +152,77 @@ public AddSpecies(Species species) {
         firstJLabel.setText("Name of Species:");
         displayJPanel.add(firstJLabel);
 
-        nameJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        nameJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        addNameJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        addNameJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                nameJTextFieldFocusGained(evt);
+                addNameJTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                nameJTextFieldFocusLost(evt);
+                addNameJTextFieldFocusLost(evt);
             }
         });
-        displayJPanel.add(nameJTextField);
+        displayJPanel.add(addNameJTextField);
 
         lastJLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lastJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lastJLabel.setText("Genus:");
         displayJPanel.add(lastJLabel);
 
-        genusJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        genusJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        genusJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        addGenusJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addGenusJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        addGenusJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                genusJTextFieldFocusGained(evt);
+                addGenusJTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                genusJTextFieldFocusLost(evt);
+                addGenusJTextFieldFocusLost(evt);
             }
         });
-        displayJPanel.add(genusJTextField);
+        displayJPanel.add(addGenusJTextField);
 
         ageJLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         ageJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ageJLabel.setText("Population:");
         displayJPanel.add(ageJLabel);
 
-        populationJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        populationJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        populationJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        addPopulationJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addPopulationJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        addPopulationJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                populationJTextFieldFocusGained(evt);
+                addPopulationJTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                populationJTextFieldFocusLost(evt);
+                addPopulationJTextFieldFocusLost(evt);
             }
         });
-        displayJPanel.add(populationJTextField);
+        displayJPanel.add(addPopulationJTextField);
 
         addressJLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addressJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         addressJLabel.setText("Diet:");
         displayJPanel.add(addressJLabel);
 
-        dietJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        dietJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        displayJPanel.add(dietJTextField);
+        addDietJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addDietJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        displayJPanel.add(addDietJTextField);
 
         cityJLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cityJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cityJLabel.setText("Habitat:");
         displayJPanel.add(cityJLabel);
 
-        habitatJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        habitatJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        habitatJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        addHabitatJTextField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        addHabitatJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        addHabitatJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                habitatJTextFieldFocusGained(evt);
+                addHabitatJTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                habitatJTextFieldFocusLost(evt);
+                addHabitatJTextFieldFocusLost(evt);
             }
         });
-        displayJPanel.add(habitatJTextField);
+        displayJPanel.add(addHabitatJTextField);
 
         controlJPanel.setLayout(new java.awt.GridLayout(1, 2, 3, 3));
 
@@ -237,36 +250,43 @@ public AddSpecies(Species species) {
 
         jLabel1.setText("Predators:");
 
-        predatorsJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+        addPredatorsJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                predatorsJTextFieldFocusGained(evt);
+                addPredatorsJTextFieldFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                predatorsJTextFieldFocusLost(evt);
+                addPredatorsJTextFieldFocusLost(evt);
             }
         });
-        predatorsJTextField.addActionListener(new java.awt.event.ActionListener() {
+        addPredatorsJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                predatorsJTextFieldActionPerformed(evt);
+                addPredatorsJTextFieldActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Predators:");
+
+        addTitleJLabel.setText("Add Player");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addPredatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(addTitleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -277,10 +297,12 @@ public AddSpecies(Species species) {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(301, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
+                .addComponent(addTitleJLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addPredatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(54, 54, 54)
                 .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -315,67 +337,109 @@ public AddSpecies(Species species) {
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addJButtonActionPerformed
     {//GEN-HEADEREND:event_addJButtonActionPerformed
-      String message = "Error!";
-try
-{
-    // Get the species name and check to see if it is valid
-    name = nameJTextField.getText();
-    if (!Validation.isLettersOnly(name))
-    {
-        message = "Please enter a valid name for the species.";
-        nameJTextField.requestFocus();
-        throw new IllegalArgumentException();
+
+        
+        
+        String message = "Species not added.";
+Connection conn = null;
+PreparedStatement pstmt = null;
+
+// Assuming these variables are retrieved from form inputs or another source
+String name = addNameJTextField.getText();
+String genus = addGenusJTextField.getText();
+int population = Integer.parseInt(addPopulationJTextField.getText());
+String diet = addDietJTextField.getText();
+String habitat = addHabitatJTextField.getText();
+String predators = addPredatorsJTextField.getText();
+
+try {
+    // Debug print statements to verify values
+    System.out.println("Name: " + name);
+    System.out.println("Genus: " + genus);
+    System.out.println("Population: " + population);
+    System.out.println("Diet: " + diet);
+    System.out.println("Habitat: " + habitat);
+    System.out.println("Predators: " + predators);
+
+    // Initialize database connection
+    conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
+
+    // Prepare SQL statement
+    String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
+    pstmt = conn.prepareStatement(sql);
+    pstmt.setString(1, name);
+    pstmt.setString(2, genus);
+    pstmt.setInt(3, population);
+    pstmt.setString(4, diet);
+    pstmt.setString(5, habitat);
+    pstmt.setString(6, predators);
+
+    // Execute update
+    int affectedRows = pstmt.executeUpdate();
+    if (affectedRows > 0) {
+        message = "Species added successfully!";
     }
 
-    // Get the genus and check to see if it is valid
-    genus = genusJTextField.getText();
-    if (!Validation.isLettersOnly(genus))
-    {
-        message = "Please enter a valid genus for the species.";
-        genusJTextField.requestFocus();
-        throw new IllegalArgumentException();
-    }
-
-    // Get the population and check to see if it is valid
-    if (!Validation.isNumeric(populationJTextField.getText()) || Integer.parseInt(populationJTextField.getText()) < 0)
-    {
-        message = "Please enter a valid integer population for the species.";
-        populationJTextField.requestFocus();
-        throw new IllegalArgumentException();
-    }
-    population = Integer.parseInt(populationJTextField.getText());
-
-    // Get the diet
-    diet = dietJTextField.getText();
-
-    // Get the habitat and check to see if it is valid
-    habitat = habitatJTextField.getText();
-    if (!Validation.isLettersOnly(habitat))
-    {
-        message = "Please enter a valid habitat for the species.";
-        habitatJTextField.requestFocus();
-        throw new IllegalArgumentException();
-    }
-
-    // Get the predators
-    predators = predatorsJTextField.getText();
-
-    // Create a new species and set the species' information
-    mySpecies = new Species(name, genus, population, diet, habitat, predators);
-
-    // Close the form
+    // Close form if successful
     this.dispose();
-}
-catch (IllegalArgumentException exp)
-{
-    JOptionPane.showMessageDialog(null, message, "Invalid Input", JOptionPane.ERROR_MESSAGE);
-}
-catch (Exception exp)
-{
-    // Show unusual error message
-    throw new RuntimeException("Error reading input.");
+} catch (SQLException exp) {
+    JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
+    exp.printStackTrace();
+} finally {
+    try {
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+    } catch (SQLException exp) {
+        exp.printStackTrace();
+    }
 }
 
+        
+        
+        
+ 
+//  
+//   String message = "Species not added.";
+//Connection conn = null;
+//PreparedStatement pstmt = null;
+//try {
+//    // Validate and retrieve data as previously shown...
+//
+//    // Initialize database connection
+//    conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
+//
+//    // Prepare SQL statement
+//    String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
+//    pstmt = conn.prepareStatement(sql);
+//    pstmt.setString(1, name);
+//    pstmt.setString(2, genus);
+//    pstmt.setInt(3, population);
+//    pstmt.setString(4, diet);
+//    pstmt.setString(5, habitat);
+//    pstmt.setString(6, predators);
+//
+//    // Execute update
+//    int affectedRows = pstmt.executeUpdate();
+//    if (affectedRows > 0) {
+//        message = "Species added successfully!";
+//    }
+//
+//    // Close form if successful
+//    this.dispose();
+//} catch (SQLException exp) {
+//    JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
+//    exp.printStackTrace();
+//} finally {
+//    try {
+//        if (pstmt != null) pstmt.close();
+//        if (conn != null) conn.close();
+//    } catch (SQLException exp) {
+//        exp.printStackTrace();
+//    }
+//}
+
+     
+     
     }//GEN-LAST:event_addJButtonActionPerformed
 
    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -386,10 +450,10 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void nameJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_nameJTextFieldFocusGained
-    {//GEN-HEADEREND:event_nameJTextFieldFocusGained
-        nameJTextField.selectAll();
-    }//GEN-LAST:event_nameJTextFieldFocusGained
+    private void addNameJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addNameJTextFieldFocusGained
+    {//GEN-HEADEREND:event_addNameJTextFieldFocusGained
+        addNameJTextField.selectAll();
+    }//GEN-LAST:event_addNameJTextFieldFocusGained
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *<pre>
      * Method       firstJTextFieldFocusLost()
@@ -400,14 +464,14 @@ catch (Exception exp)
      * History log  8/24/2016, 4/3/2020
     *</pre>
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void nameJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_nameJTextFieldFocusLost
-    {//GEN-HEADEREND:event_nameJTextFieldFocusLost
-        String input = nameJTextField.getText();
+    private void addNameJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addNameJTextFieldFocusLost
+    {//GEN-HEADEREND:event_addNameJTextFieldFocusLost
+        String input = addNameJTextField.getText();
         if(Validation.isValidName(input))
-            nameJTextField.setBackground(white);
+            addNameJTextField.setBackground(white);
         else
-            nameJTextField.setBackground(pink);
-    }//GEN-LAST:event_nameJTextFieldFocusLost
+            addNameJTextField.setBackground(pink);
+    }//GEN-LAST:event_addNameJTextFieldFocusLost
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       lastJTextFieldFocusGained()
      * Description  Highlight lastJTextField as focus is gained.
@@ -416,10 +480,10 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void genusJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_genusJTextFieldFocusGained
-    {//GEN-HEADEREND:event_genusJTextFieldFocusGained
-        genusJTextField.selectAll();
-    }//GEN-LAST:event_genusJTextFieldFocusGained
+    private void addGenusJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addGenusJTextFieldFocusGained
+    {//GEN-HEADEREND:event_addGenusJTextFieldFocusGained
+        addGenusJTextField.selectAll();
+    }//GEN-LAST:event_addGenusJTextFieldFocusGained
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       lastJTextFieldFocusLost()
      * Description  Change color of lastJTextField according to valid input.
@@ -428,14 +492,14 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void genusJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_genusJTextFieldFocusLost
-    {//GEN-HEADEREND:event_genusJTextFieldFocusLost
-        String input = genusJTextField.getText();
+    private void addGenusJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addGenusJTextFieldFocusLost
+    {//GEN-HEADEREND:event_addGenusJTextFieldFocusLost
+        String input = addGenusJTextField.getText();
         if(Validation.isValidName(input))
-            genusJTextField.setBackground(white);
+            addGenusJTextField.setBackground(white);
         else
-            genusJTextField.setBackground(pink);
-    }//GEN-LAST:event_genusJTextFieldFocusLost
+            addGenusJTextField.setBackground(pink);
+    }//GEN-LAST:event_addGenusJTextFieldFocusLost
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       ageJTextFieldFocusGained()
      * Description  Highlight ageJTextField as focus is gained.
@@ -444,10 +508,10 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void populationJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_populationJTextFieldFocusGained
-    {//GEN-HEADEREND:event_populationJTextFieldFocusGained
-        populationJTextField.selectAll();
-    }//GEN-LAST:event_populationJTextFieldFocusGained
+    private void addPopulationJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addPopulationJTextFieldFocusGained
+    {//GEN-HEADEREND:event_addPopulationJTextFieldFocusGained
+        addPopulationJTextField.selectAll();
+    }//GEN-LAST:event_addPopulationJTextFieldFocusGained
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       ageJTextFieldFocusLost()
      * Description  Change color of lastJTextField according to valid input.
@@ -456,14 +520,14 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void populationJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_populationJTextFieldFocusLost
-    {//GEN-HEADEREND:event_populationJTextFieldFocusLost
-        String input = populationJTextField.getText();
+    private void addPopulationJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addPopulationJTextFieldFocusLost
+    {//GEN-HEADEREND:event_addPopulationJTextFieldFocusLost
+        String input = addPopulationJTextField.getText();
         if(Validation.isInteger(input, 5, 140))     //valid age: [5,140]
-            populationJTextField.setBackground(white);
+            addPopulationJTextField.setBackground(white);
         else
-            populationJTextField.setBackground(pink);
-    }//GEN-LAST:event_populationJTextFieldFocusLost
+            addPopulationJTextField.setBackground(pink);
+    }//GEN-LAST:event_addPopulationJTextFieldFocusLost
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       cityJTextFieldFocusGained()
      * Description  Highlight cityJTextField as focus is gained.
@@ -472,10 +536,10 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void habitatJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_habitatJTextFieldFocusGained
-    {//GEN-HEADEREND:event_habitatJTextFieldFocusGained
-        habitatJTextField.selectAll();
-    }//GEN-LAST:event_habitatJTextFieldFocusGained
+    private void addHabitatJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addHabitatJTextFieldFocusGained
+    {//GEN-HEADEREND:event_addHabitatJTextFieldFocusGained
+        addHabitatJTextField.selectAll();
+    }//GEN-LAST:event_addHabitatJTextFieldFocusGained
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       cityJTextFieldFocusLost()
      * Description  Change color of cityJTextField according to valid input.
@@ -484,33 +548,33 @@ catch (Exception exp)
      * Date         4/5/2021
      * History log  8/24/2016, 4/3/2020
     *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    private void habitatJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_habitatJTextFieldFocusLost
-    {//GEN-HEADEREND:event_habitatJTextFieldFocusLost
-        String input = habitatJTextField.getText();
+    private void addHabitatJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addHabitatJTextFieldFocusLost
+    {//GEN-HEADEREND:event_addHabitatJTextFieldFocusLost
+        String input = addHabitatJTextField.getText();
         if(Validation.isValidName(input))
-            habitatJTextField.setBackground(white);
+            addHabitatJTextField.setBackground(white);
         else
-            habitatJTextField.setBackground(pink);
-    }//GEN-LAST:event_habitatJTextFieldFocusLost
+            addHabitatJTextField.setBackground(pink);
+    }//GEN-LAST:event_addHabitatJTextFieldFocusLost
 
-    private void predatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predatorsJTextFieldActionPerformed
+    private void addPredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_predatorsJTextFieldActionPerformed
+    }//GEN-LAST:event_addPredatorsJTextFieldActionPerformed
 
-    private void predatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_predatorsJTextFieldFocusGained
+    private void addPredatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusGained
         // TODO add your handling code here:
-            predatorsJTextField.selectAll();
+            addPredatorsJTextField.selectAll();
 
-    }//GEN-LAST:event_predatorsJTextFieldFocusGained
+    }//GEN-LAST:event_addPredatorsJTextFieldFocusGained
 
-    private void predatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_predatorsJTextFieldFocusLost
+    private void addPredatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusLost
         // TODO add your handling code here:
-            String input = predatorsJTextField.getText();
+            String input = addPredatorsJTextField.getText();
     if (Validation.isValidName(input))
-        predatorsJTextField.setBackground(white);
+        addPredatorsJTextField.setBackground(white);
     else
-        predatorsJTextField.setBackground(pink);
-    }//GEN-LAST:event_predatorsJTextFieldFocusLost
+        addPredatorsJTextField.setBackground(pink);
+    }//GEN-LAST:event_addPredatorsJTextFieldFocusLost
 
     
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -534,22 +598,23 @@ catch (Exception exp)
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField addDietJTextField;
+    private javax.swing.JTextField addGenusJTextField;
+    private javax.swing.JTextField addHabitatJTextField;
     private javax.swing.JButton addJButton;
+    private javax.swing.JTextField addNameJTextField;
+    private javax.swing.JTextField addPopulationJTextField;
+    private javax.swing.JTextField addPredatorsJTextField;
+    private javax.swing.JLabel addTitleJLabel;
     private javax.swing.JLabel addressJLabel;
     private javax.swing.JLabel ageJLabel;
     private javax.swing.JLabel cityJLabel;
     private javax.swing.JPanel controlJPanel;
-    private javax.swing.JTextField dietJTextField;
     private javax.swing.JPanel displayJPanel;
     private javax.swing.JLabel firstJLabel;
-    private javax.swing.JTextField genusJTextField;
-    private javax.swing.JTextField habitatJTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lastJLabel;
-    private javax.swing.JTextField nameJTextField;
-    private javax.swing.JTextField populationJTextField;
-    private javax.swing.JTextField predatorsJTextField;
     private javax.swing.JButton quitJButton;
     // End of variables declaration//GEN-END:variables
 }
