@@ -949,14 +949,34 @@ private Species findSpeciesByGenus(String genus) {
         // Process the result set
         StringBuilder result = new StringBuilder("Search Results:\n");
         boolean hasResults = false;
-        while (rs.next()) {
+        if (rs.next()) {
             hasResults = true;
+
+            // Populate the text fields with the first result
+            NameOfSpeciesJTextField.setText(rs.getString("name"));
+            GenusJTextField.setText(rs.getString("genus"));
+            PopulationJTextField.setText(String.valueOf(rs.getInt("population")));
+            DietJTextField.setText(rs.getString("diet"));
+            HabitatJTextField.setText(rs.getString("habitat"));
+            PredatorsJTextField.setText(rs.getString("predators"));
+
+            // Append the first result to the result StringBuilder
             result.append("Name: ").append(rs.getString("name")).append(", ");
             result.append("Genus: ").append(rs.getString("genus")).append(", ");
             result.append("Population: ").append(rs.getInt("population")).append(", ");
             result.append("Diet: ").append(rs.getString("diet")).append(", ");
             result.append("Habitat: ").append(rs.getString("habitat")).append(", ");
             result.append("Predators: ").append(rs.getString("predators")).append("\n");
+
+            // Process additional results
+            while (rs.next()) {
+                result.append("Name: ").append(rs.getString("name")).append(", ");
+                result.append("Genus: ").append(rs.getString("genus")).append(", ");
+                result.append("Population: ").append(rs.getInt("population")).append(", ");
+                result.append("Diet: ").append(rs.getString("diet")).append(", ");
+                result.append("Habitat: ").append(rs.getString("habitat")).append(", ");
+                result.append("Predators: ").append(rs.getString("predators")).append("\n");
+            }
         }
 
         if (!hasResults) {
