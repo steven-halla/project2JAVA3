@@ -612,7 +612,7 @@ private void speciesSelector() {
                     PopulationJTextField.setText("");
                     DietJTextField.setText("");
                     HabitatJTextField.setText("");
-                    PredatorsJTextField.setText(""); // New line added
+                    PredatorsJTextField.setText(""); 
                     System.out.println("No species selected");
                 }
             }
