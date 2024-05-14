@@ -10,6 +10,7 @@ import static project2species.MySQLConnection.DB_URL;
 import static project2species.MySQLConnection.USER;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 
 
@@ -52,16 +53,22 @@ public class EditSpecies extends javax.swing.JDialog
     {
         initComponents();
         // Center the form
+
         this.setLocationRelativeTo(null);        
         // Set the default button
 //        this.getRootPane().setDefaultButton(addJButton);   
         // Center the form
 //        addJButton.setText("Edit");
         // Set the modal to true
-        setModal(true);        
+        setModal(true);     
+        
     }
     
+    
+    
     public void initializeEditForm(Species species) {
+                System.out.println("Initializing Edit Form with Original Name: " + originalName); // Print statement for debugging
+
     originalName = species.getName();
     editNameJTextField.setText(species.getName());
     editGenusJTextField.setText(species.getGenus());
@@ -99,6 +106,8 @@ public EditSpecies(java.awt.Frame parent, boolean modal, Species species) {
     this.setLocationRelativeTo(null);        
     this.mySpecies = species;
     setFormData(species);
+            initializeEditForm(species); // Call this method to initialize the form
+
 }
 
 private void setFormData(Species species) {
@@ -364,20 +373,18 @@ private void setFormData(Species species) {
     {//GEN-HEADEREND:event_editJButtonActionPerformed
 
         
-        
-     // Check if a species is selected
-    if (editNameJTextField.getText().isEmpty()) {
+            if (editNameJTextField.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please select a species.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     // Retrieve the species details from the text fields
-    String name = editNameJTextField.getText();
-    String genus = editGenusJTextField.getText();
-    int population = Integer.parseInt(editPopulationJTextField.getText());
-    String diet = editDietJTextField.getText();
-    String habitat = editHabitatJTextField.getText();
-    String predators = editPredatorsJTextField.getText();
+    String newName = editNameJTextField.getText().trim();
+    String genus = editGenusJTextField.getText().trim();
+    int population = Integer.parseInt(editPopulationJTextField.getText().trim());
+    String diet = editDietJTextField.getText().trim();
+    String habitat = editHabitatJTextField.getText().trim();
+    String predators = editPredatorsJTextField.getText().trim();
 
     // Default message for failure
     String message = "Species not updated.";
@@ -386,7 +393,9 @@ private void setFormData(Species species) {
 
     try {
         // Debug print statements to verify values
-        System.out.println("Name: " + name);
+        System.out.println("Attempting to update species with the following details:");
+        System.out.println("Original Name: " + originalName); // Ensure this is set
+        System.out.println("New Name: " + newName);
         System.out.println("Genus: " + genus);
         System.out.println("Population: " + population);
         System.out.println("Diet: " + diet);
@@ -396,32 +405,38 @@ private void setFormData(Species species) {
         // Initialize database connection
         conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
 
-        // Prepare SQL statement to update the species based on the name
-        String sql = "UPDATE SpeciesTable SET genus = ?, population = ?, diet = ?, habitat = ?, predators = ? WHERE name = ?";
+        // Check if the species with the original name exists
+        String checkSql = "SELECT COUNT(*) FROM SpeciesTable WHERE name = ?";
+        pstmt = conn.prepareStatement(checkSql);
+        pstmt.setString(1, originalName);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next() && rs.getInt(1) == 0) {
+            JOptionPane.showMessageDialog(this, "Species not found in the database.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        pstmt.close();
+
+        // Prepare SQL statement to update the species based on the original name
+        String sql = "UPDATE SpeciesTable SET name = ?, genus = ?, population = ?, diet = ?, habitat = ?, predators = ? WHERE name = ?";
         pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, genus);
-        pstmt.setInt(2, population);
-        pstmt.setString(3, diet);
-        pstmt.setString(4, habitat);
-        pstmt.setString(5, predators);
-        pstmt.setString(6, name);
+        pstmt.setString(1, newName);
+        pstmt.setString(2, genus);
+        pstmt.setInt(3, population);
+        pstmt.setString(4, diet);
+        pstmt.setString(5, habitat);
+        pstmt.setString(6, predators);
+        pstmt.setString(7, originalName); // Use originalName here
 
         // Execute update
         int affectedRows = pstmt.executeUpdate();
+        System.out.println("Affected rows: " + affectedRows);
         if (affectedRows > 0) {
             message = "Species updated successfully!";
-            // Update the display with the edited species details
-            editNameJTextField.setText(name);
-            editGenusJTextField.setText(genus);
-            editPopulationJTextField.setText(String.valueOf(population));
-            editDietJTextField.setText(diet);
-            editHabitatJTextField.setText(habitat);
-            editPredatorsJTextField.setText(predators);
         } else {
             message = "Species not found or not updated.";
         }
 
-        // Close form if successful
+        // Show message dialog
         JOptionPane.showMessageDialog(this, message, "Update Status", JOptionPane.INFORMATION_MESSAGE);
         if (affectedRows > 0) {
             this.dispose();
@@ -437,7 +452,6 @@ private void setFormData(Species species) {
             exp.printStackTrace();
         }
     }
-        
 
 
      
