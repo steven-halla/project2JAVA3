@@ -85,6 +85,13 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         NameOfSpeciesJTextField = new javax.swing.JTextField();
         imageMainJLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        searchJTextField = new javax.swing.JTextField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        searchJMenuItem = new javax.swing.JMenuItem();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -251,33 +258,72 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 255, 204));
         jLabel1.setText("Endangered Species");
 
+        jLabel2.setText("Search:");
+
+        searchJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchJTextFieldActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Sort");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Database Management");
+
+        searchJMenuItem.setText("search");
+        searchJMenuItem.setToolTipText("");
+        searchJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(searchJMenuItem);
+
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(bottomButtonsJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(speciesListJjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(57, 57, 57)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bottomButtonsJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(speciesListJjScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imageMainJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jLabel2)
+                                .addGap(57, 57, 57)
+                                .addComponent(searchJTextField)))))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(searchJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imageMainJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)))
@@ -870,6 +916,65 @@ private Species findSpeciesByGenus(String genus) {
     }
     }//GEN-LAST:event_deleteJButtonActionPerformed
 
+    private void searchJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchJMenuItemActionPerformed
+
+    private void searchJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJTextFieldActionPerformed
+        // TODO add your handling code here:
+         String searchText = searchJTextField.getText().trim();
+    if (searchText.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please enter search criteria!", "No Search Criteria", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // SQL query to search the database including all fields
+    String query = "SELECT * FROM SpeciesTable WHERE name LIKE ? OR genus LIKE ? OR habitat LIKE ? OR predators LIKE ? OR diet LIKE ? OR CAST(population AS CHAR) LIKE ?";
+
+    try {
+        Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+        PreparedStatement pstmt = con.prepareStatement(query);
+
+        // Setting the parameters for the prepared statement
+        String searchPattern = "%" + searchText + "%";
+        pstmt.setString(1, searchPattern);
+        pstmt.setString(2, searchPattern);
+        pstmt.setString(3, searchPattern);
+        pstmt.setString(4, searchPattern);
+        pstmt.setString(5, searchPattern);
+        pstmt.setString(6, searchPattern);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        // Process the result set
+        StringBuilder result = new StringBuilder("Search Results:\n");
+        boolean hasResults = false;
+        while (rs.next()) {
+            hasResults = true;
+            result.append("Name: ").append(rs.getString("name")).append(", ");
+            result.append("Genus: ").append(rs.getString("genus")).append(", ");
+            result.append("Population: ").append(rs.getInt("population")).append(", ");
+            result.append("Diet: ").append(rs.getString("diet")).append(", ");
+            result.append("Habitat: ").append(rs.getString("habitat")).append(", ");
+            result.append("Predators: ").append(rs.getString("predators")).append("\n");
+        }
+
+        if (!hasResults) {
+            JOptionPane.showMessageDialog(null, "No results found!", "No Results", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, result.toString(), "Search Results", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        rs.close();
+        pstmt.close();
+        con.close();
+
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
+        exp.printStackTrace();
+    }
+    }//GEN-LAST:event_searchJTextFieldActionPerformed
+
    
     public static void main(String args[]) {
    
@@ -899,9 +1004,16 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JLabel imageMainJLabel;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JLabel populationJLabel;
+    private javax.swing.JMenuItem searchJMenuItem;
+    private javax.swing.JTextField searchJTextField;
     private javax.swing.JList<String> speciesListJList;
     private javax.swing.JScrollPane speciesListJjScrollPane;
     // End of variables declaration//GEN-END:variables
