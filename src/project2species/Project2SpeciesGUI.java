@@ -181,6 +181,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
             }
         });
 
+        NameOfSpeciesJTextField.setEditable(false);
         NameOfSpeciesJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NameOfSpeciesJTextFieldActionPerformed(evt);
