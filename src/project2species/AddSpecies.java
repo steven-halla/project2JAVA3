@@ -40,9 +40,9 @@ public class AddSpecies extends javax.swing.JDialog
         // Center the form
         this.setLocationRelativeTo(null);        
         // Set the default button
-        this.getRootPane().setDefaultButton(addJButton);   
+//        this.getRootPane().setDefaultButton(addJButton);   
         // Center the form
-        addJButton.setText("Edit");
+//        addJButton.setText("Edit");
         // Set the modal to true
         setModal(true);        
     }
@@ -66,7 +66,6 @@ public AddSpecies(Species species) {
     habitatJTextField.setText(species.getHabitat());
     predatorsJTextField.setText(species.getPredators()); // Adding predators field
 
-    titleJLabel.setText("Edit Species");
 }
 
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,6 +82,7 @@ public AddSpecies(Species species) {
     {
         super(parent, modal);
         initComponents();
+
         // Center the form
         this.setLocationRelativeTo(null);        
         // Set the default button
@@ -109,7 +109,6 @@ public AddSpecies(Species species) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        titleJLabel = new javax.swing.JLabel();
         displayJPanel = new javax.swing.JPanel();
         firstJLabel = new javax.swing.JLabel();
         nameJTextField = new javax.swing.JTextField();
@@ -126,15 +125,11 @@ public AddSpecies(Species species) {
         quitJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         predatorsJTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Employee Add Form");
         setType(java.awt.Window.Type.UTILITY);
-
-        titleJLabel.setFont(new java.awt.Font("Tempus Sans ITC", 2, 30)); // NOI18N
-        titleJLabel.setForeground(new java.awt.Color(0, 102, 102));
-        titleJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/address_small.jpg"))); // NOI18N
-        titleJLabel.setText("Add Person");
 
         displayJPanel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         displayJPanel.setLayout(new java.awt.GridLayout(7, 2, 3, 3));
@@ -242,25 +237,37 @@ public AddSpecies(Species species) {
 
         jLabel1.setText("Predators:");
 
+        predatorsJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                predatorsJTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                predatorsJTextFieldFocusLost(evt);
+            }
+        });
+        predatorsJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                predatorsJTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Predators:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(titleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(29, 29, 29)
@@ -270,12 +277,11 @@ public AddSpecies(Species species) {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(titleJLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                .addContainerGap(301, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(predatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(54, 54, 54)
                 .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -487,6 +493,25 @@ catch (Exception exp)
             habitatJTextField.setBackground(pink);
     }//GEN-LAST:event_habitatJTextFieldFocusLost
 
+    private void predatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predatorsJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_predatorsJTextFieldActionPerformed
+
+    private void predatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_predatorsJTextFieldFocusGained
+        // TODO add your handling code here:
+            predatorsJTextField.selectAll();
+
+    }//GEN-LAST:event_predatorsJTextFieldFocusGained
+
+    private void predatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_predatorsJTextFieldFocusLost
+        // TODO add your handling code here:
+            String input = predatorsJTextField.getText();
+    if (Validation.isValidName(input))
+        predatorsJTextField.setBackground(white);
+    else
+        predatorsJTextField.setBackground(pink);
+    }//GEN-LAST:event_predatorsJTextFieldFocusLost
+
     
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method       predatorsJTextFieldFocusGained()
@@ -496,10 +521,7 @@ catch (Exception exp)
  * Date         4/5/2021
  * History log  8/24/2016, 4/3/2020
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-private void predatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt)                                              
-{                                                  
-    predatorsJTextField.selectAll();
-}                                             
+                                          
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method       predatorsJTextFieldFocusLost()
@@ -509,14 +531,7 @@ private void predatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt)
  * Date         4/5/2021
  * History log  8/24/2016, 4/3/2020
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-private void predatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt)                                            
-{                                                
-    String input = predatorsJTextField.getText();
-    if (Validation.isValidName(input))
-        predatorsJTextField.setBackground(white);
-    else
-        predatorsJTextField.setBackground(pink);
-}    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addJButton;
@@ -530,11 +545,11 @@ private void predatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt)
     private javax.swing.JTextField genusJTextField;
     private javax.swing.JTextField habitatJTextField;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lastJLabel;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JTextField populationJTextField;
     private javax.swing.JTextField predatorsJTextField;
     private javax.swing.JButton quitJButton;
-    private javax.swing.JLabel titleJLabel;
     // End of variables declaration//GEN-END:variables
 }

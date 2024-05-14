@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -92,6 +95,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         speciesListJjScrollPane.setViewportView(speciesListJList);
 
         addJButton.setText("Add");
+        addJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addJButtonActionPerformed(evt);
+            }
+        });
 
         editJButton.setText("Edit");
 
@@ -678,6 +686,64 @@ private Species findSpeciesByGenus(String genus) {
                           System.out.println("Action performed on NameOfSpeciesJTextField: " + PopulationJTextField.getText());
 
     }//GEN-LAST:event_PopulationJTextFieldActionPerformed
+   
+    
+    private void display(Species mySpecies)
+    {
+    NameOfSpeciesJTextField.setText(mySpecies.getName());
+    GenusJTextField.setText(mySpecies.getGenus());
+    PopulationJTextField.setText(String.valueOf(mySpecies.getPopulation()));
+    DietJTextField.setText(mySpecies.getDiet());
+    HabitatJTextField.setText(mySpecies.getHabitat());
+    PredatorsJTextField.setText(mySpecies.getPredators());
+    }
+    
+      private boolean exists(Species mySpecies)
+    {
+        boolean found = false;
+        try
+        {
+            
+        }
+        catch(Exception exp)
+        {
+            exp.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error in exists.", 
+                    "Error!", JOptionPane.ERROR_MESSAGE);
+        }
+        return found;
+    }
+    
+    
+    private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
+      System.out.println("Opening AddSpecies dialog...");
+    try {
+        // Open AddSpecies dialog
+        AddSpecies myAddForm = new AddSpecies(this, true);
+        System.out.println("Dialog created");
+        myAddForm.setVisible(true);
+        System.out.println("Dialog should now be visible");
+
+        // Check if the dialog is visible
+        if (myAddForm.isVisible()) {
+            System.out.println("Dialog is visible");
+        } else {
+            System.out.println("Dialog is not visible");
+        }
+
+        // Get the new species data from the form
+        Species newSpecies = myAddForm.getSpecies();
+        if (newSpecies != null) {
+            System.out.println("New species data retrieved: " + newSpecies.getName());
+        } else {
+            System.out.println("No new species data retrieved");
+        }
+    } catch (Exception exp) {
+        exp.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error opening the AddSpecies form", "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+         
+    }//GEN-LAST:event_addJButtonActionPerformed
 
    
     public static void main(String args[]) {
