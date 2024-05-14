@@ -111,6 +111,19 @@ public class Species implements Comparable<Species> {
         this.habitat = other.habitat;
         this.predators = other.predators;
     }
+    
+    
+    
+    public Species(String name, String genus) {
+    this.name = name;
+    this.genus = genus;
+    // Initialize other fields to defaults if necessary
+    this.population = 0;
+    this.diet = "";
+    this.habitat = "";
+    this.predators = "";
+}
+
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method: getName
  * Description: Retrieves the name of the species. This method provides access to the private name attribute

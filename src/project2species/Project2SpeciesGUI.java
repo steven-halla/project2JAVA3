@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -35,6 +37,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
  
     public Project2SpeciesGUI() {
         initComponents();
+//            loadSpeciesFromDatabase();  // Load species data from database
+
         updateSpeciesListJList(); // Populate the JList after the GUI is set up
         speciesSelector();  // Set up the listener after initializing components
 
@@ -45,6 +49,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         String url = DB_URL;
         String user = USER;
         String password = PASS;
+        
+         System.out.println("Loaded species data from database:");
+    for (Species species : animals) {
+        System.out.println(species);
+    }
     }
 
    
@@ -132,6 +141,12 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         GenusJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GenusJTextFieldActionPerformed(evt);
+            }
+        });
+
+        PopulationJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PopulationJTextFieldActionPerformed(evt);
             }
         });
 
@@ -260,7 +275,53 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void loadSpeciesFromDatabase() {
+    Connection conn = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+
+    try {
+        // Load the database driver (if necessary)
+        Class.forName("com.mysql.jdbc.Driver");
+
+        // Establish a connection
+        conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+        // Create a statement object to perform the query
+        stmt = conn.createStatement();
+
+        // SQL query to fetch name and genus
+        String sql = "SELECT name, genus FROM SpeciesTable";
+        rs = stmt.executeQuery(sql);
+
+        // Clear the current list
+        animals.clear();
+
+        // Process the result set
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String genus = rs.getString("genus");
+
+            // Create a new Species object and add it to the list
+            Species species = new Species(name, genus, 0, "", "", "");
+            animals.add(species);
+        }
+    } catch (ClassNotFoundException e) {
+        System.err.println("Driver not found: " + e.getMessage());
+    } catch (SQLException e) {
+        System.err.println("SQL error: " + e.getMessage());
+    } finally {
+        // Close all resources
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            System.err.println("SQL error on close: " + e.getMessage());
+        }
+    }
+}
+
     
     private ArrayList<String> fetchSpeciesNames() {
     ArrayList<String> names = new ArrayList<>();
@@ -379,41 +440,179 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     }
 }
      
+private Map<String, String> findSpeciesNames() {
+    Map<String, String> speciesMap = new HashMap<>();
+    String query = "SELECT name FROM SpeciesTable WHERE name IS NOT NULL AND name != ''";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
 
-   private void speciesSelector() {
+        while (rs.next()) {
+            String name = rs.getString("name");
+            if (name != null && !name.isEmpty()) {
+                speciesMap.put(name, ""); // Put an empty string for genus initially
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return speciesMap;
+}
+
+private Map<String, String> findSpeciesGenera() {
+    Map<String, String> genusMap = new HashMap<>();
+    String query = "SELECT name, genus FROM SpeciesTable WHERE name IS NOT NULL AND genus IS NOT NULL AND name != '' AND genus != ''";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String genus = rs.getString("genus");
+            if (name != null && !name.isEmpty() && genus != null && !genus.isEmpty()) {
+                genusMap.put(name, genus);
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return genusMap;
+}
+
+private Map<String, Integer> findSpeciesPopulations() {
+    Map<String, Integer> populationMap = new HashMap<>();
+    String query = "SELECT name, population FROM SpeciesTable WHERE name IS NOT NULL AND population IS NOT NULL AND name != '' AND population > 0";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            int population = rs.getInt("population");
+            if (name != null && !name.isEmpty() && population > 0) {
+                populationMap.put(name, population);
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return populationMap;
+}
+
+private Map<String, String> findSpeciesDiets() {
+    Map<String, String> dietMap = new HashMap<>();
+    String query = "SELECT name, diet FROM SpeciesTable WHERE name IS NOT NULL AND diet IS NOT NULL AND name != '' AND diet != ''";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String diet = rs.getString("diet");
+            if (name != null && !name.isEmpty() && diet != null && !diet.isEmpty()) {
+                dietMap.put(name, diet);
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return dietMap;
+}
+
+private Map<String, String> findSpeciesHabitats() {
+    Map<String, String> habitatMap = new HashMap<>();
+    String query = "SELECT name, habitat FROM SpeciesTable WHERE name IS NOT NULL AND habitat IS NOT NULL AND name != '' AND habitat != ''";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String habitat = rs.getString("habitat");
+            if (name != null && !name.isEmpty() && habitat != null && !habitat.isEmpty()) {
+                habitatMap.put(name, habitat);
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return habitatMap;
+}
+
+private Map<String, String> findSpeciesPredators() {
+    Map<String, String> predatorMap = new HashMap<>();
+    String query = "SELECT name, predators FROM SpeciesTable WHERE name IS NOT NULL AND predators IS NOT NULL AND name != '' AND predators != ''";
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+            String predators = rs.getString("predators");
+            if (name != null && !name.isEmpty() && predators != null && !predators.isEmpty()) {
+                predatorMap.put(name, predators);
+            }
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return predatorMap;
+}
+
+
+private void speciesSelector() {
+    Map<String, String> speciesNameMap = findSpeciesNames();
+    Map<String, String> speciesGenusMap = findSpeciesGenera();
+    Map<String, Integer> speciesPopulationMap = findSpeciesPopulations();
+    Map<String, String> speciesDietMap = findSpeciesDiets();
+    Map<String, String> speciesHabitatMap = findSpeciesHabitats();
+    Map<String, String> speciesPredatorMap = findSpeciesPredators(); // New line added
+
     speciesListJList.addListSelectionListener(new ListSelectionListener() {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
-                String selectedSpeciesDetails = speciesListJList.getSelectedValue();
-                if (selectedSpeciesDetails != null) {
-                    String[] details = selectedSpeciesDetails.trim().split(",", -1); // Ensuring trimming and preserving empty
-                    String selectedSpeciesName = details[0].trim();
-                    String selectedSpeciesGenus = details.length > 1 && !details[1].trim().isEmpty() ? details[1].trim() : "Unknown";
+                String selectedSpeciesName = speciesListJList.getSelectedValue();
+                if (selectedSpeciesName != null) {
+                    String selectedSpeciesGenus = speciesGenusMap.get(selectedSpeciesName);
+                    Integer selectedSpeciesPopulation = speciesPopulationMap.get(selectedSpeciesName);
+                    String selectedSpeciesDiet = speciesDietMap.get(selectedSpeciesName);
+                    String selectedSpeciesHabitat = speciesHabitatMap.get(selectedSpeciesName);
+                    String selectedSpeciesPredator = speciesPredatorMap.get(selectedSpeciesName); // New line added
+                    if (selectedSpeciesGenus != null) {
+                        System.out.println("Selected Species Name: " + selectedSpeciesName + ", Genus: " + selectedSpeciesGenus);
+                        // Display species name
+                        NameOfSpeciesJTextField.setText(selectedSpeciesName);
 
-                    System.out.println("Parsed name: " + selectedSpeciesName + ", Parsed genus: " + selectedSpeciesGenus);
+                        // Display species genus
+                        GenusJTextField.setText(selectedSpeciesGenus);
 
-                    // Finding species by name
-                    Species selectedSpecies = findSpeciesByName(selectedSpeciesName);
-                    if (selectedSpecies != null) {
-                        System.out.println("Selected Species Info by Name: " + selectedSpecies);
-                        NameOfSpeciesJTextField.setText(selectedSpecies.getName());
+                        // Display species population
+                        PopulationJTextField.setText(selectedSpeciesPopulation != null ? selectedSpeciesPopulation.toString() : "");
+
+                        // Display species diet
+                        DietJTextField.setText(selectedSpeciesDiet != null ? selectedSpeciesDiet : "");
+
+                        // Display species habitat
+                        HabitatJTextField.setText(selectedSpeciesHabitat != null ? selectedSpeciesHabitat : "");
+
+                        // Display species predator
+                        PredatorsJTextField.setText(selectedSpeciesPredator != null ? selectedSpeciesPredator : ""); // New line added
                     } else {
-                        System.out.println("Species not found by name in the list");
-                        NameOfSpeciesJTextField.setText("");
-                    }
-
-                    // Finding species by genus
-                    Species speciesByGenus = findSpeciesByGenus(selectedSpeciesGenus);
-                    if (speciesByGenus != null) {
-                        System.out.println("Selected Species Info by Genus: " + speciesByGenus);
-                        GenusJTextField.setText(speciesByGenus.getGenus());
-                    } else {
-                        System.out.println("Species not found by genus in the list");
-                        GenusJTextField.setText("Unknown");
+                        System.out.println("Genus not found for species: " + selectedSpeciesName);
                     }
                 } else {
                     NameOfSpeciesJTextField.setText("");
                     GenusJTextField.setText("");
+                    PopulationJTextField.setText("");
+                    DietJTextField.setText("");
+                    HabitatJTextField.setText("");
+                    PredatorsJTextField.setText(""); // New line added
                     System.out.println("No species selected");
                 }
             }
@@ -421,34 +620,25 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     });
 }
 
-             
 
 
 
 
-
-
-
-
-
-private Species findSpeciesByName(String name) {
-    for (Species species : animals) {
-        if (species.getName().equals(name)) {
-            return species;
-        }
-    }
-    return null;  
-}
 
 private Species findSpeciesByGenus(String genus) {
+    // If genus is unknown or empty, return null
+    if (genus == null || genus.isEmpty() || genus.equals("Unknown")) {
+        return null;
+    }
+
     for (Species species : animals) {
-        if (species.getGenus().equals(genus)) {
+        // Check if the genus matches, ignoring case
+        if (species.getGenus().equalsIgnoreCase(genus)) {
             return species;
         }
     }
     return null;
 }
-
 
      
     
@@ -462,20 +652,32 @@ private Species findSpeciesByGenus(String genus) {
 
     private void DietJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DietJTextFieldActionPerformed
         // TODO add your handling code here:
+                          System.out.println("Action performed on NameOfSpeciesJTextField: " + DietJTextField.getText());
+
     }//GEN-LAST:event_DietJTextFieldActionPerformed
 
     private void HabitatJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabitatJTextFieldActionPerformed
         // TODO add your handling code here:
+                          System.out.println("Action performed on NameOfSpeciesJTextField: " + HabitatJTextField.getText());
+
     }//GEN-LAST:event_HabitatJTextFieldActionPerformed
 
     private void PredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PredatorsJTextFieldActionPerformed
         // TODO add your handling code here:
+                          System.out.println("Action performed on NameOfSpeciesJTextField: " + PredatorsJTextField.getText());
+
     }//GEN-LAST:event_PredatorsJTextFieldActionPerformed
 
     private void NameOfSpeciesJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameOfSpeciesJTextFieldActionPerformed
           System.out.println("Action performed on NameOfSpeciesJTextField: " + NameOfSpeciesJTextField.getText());
 
     }//GEN-LAST:event_NameOfSpeciesJTextFieldActionPerformed
+
+    private void PopulationJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PopulationJTextFieldActionPerformed
+        // TODO add your handling code here:
+                          System.out.println("Action performed on NameOfSpeciesJTextField: " + PopulationJTextField.getText());
+
+    }//GEN-LAST:event_PopulationJTextFieldActionPerformed
 
    
     public static void main(String args[]) {
