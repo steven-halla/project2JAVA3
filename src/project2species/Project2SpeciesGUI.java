@@ -16,15 +16,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import static project2species.MySQLConnection.DB_URL;
 import static project2species.MySQLConnection.PASS;
 import static project2species.MySQLConnection.USER;
+import java.sql.PreparedStatement;
 
 
 public class Project2SpeciesGUI extends javax.swing.JFrame {
@@ -109,6 +107,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         });
 
         deleteJButton.setText("Delete");
+        deleteJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteJButtonActionPerformed(evt);
+            }
+        });
 
         exitJButton.setText("Exit");
 
@@ -810,6 +813,62 @@ private Species findSpeciesByGenus(String genus) {
 //    HabitatJTextField.setText(updatedSpecies.getHabitat());
 //    PredatorsJTextField.setText(updatedSpecies.getPredators());
     }//GEN-LAST:event_editJButtonActionPerformed
+
+    private void deleteJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteJButtonActionPerformed
+        // TODO add your handling code here:
+         String selectedSpeciesName = speciesListJList.getSelectedValue();
+    if (selectedSpeciesName == null) {
+        JOptionPane.showMessageDialog(this, "Please select a species to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Confirm the deletion
+    int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete " + selectedSpeciesName + "?", "Delete Species", JOptionPane.YES_NO_OPTION);
+    
+    if (result == JOptionPane.YES_OPTION) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            // Establish a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            // Prepare the SQL DELETE statement
+            String query = "DELETE FROM SpeciesTable WHERE name = ?";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, selectedSpeciesName);
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                JOptionPane.showMessageDialog(this, "Species deleted successfully.", "Deletion Successful", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Species not found or could not be deleted.", "Deletion Failed", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Update the JList to reflect the changes
+            updateSpeciesListJList();
+
+            // Clear the text fields
+            NameOfSpeciesJTextField.setText("");
+            GenusJTextField.setText("");
+            PopulationJTextField.setText("");
+            DietJTextField.setText("");
+            HabitatJTextField.setText("");
+            PredatorsJTextField.setText("");
+
+        } catch (SQLException exp) {
+            JOptionPane.showMessageDialog(this, "SQL error: " + exp.getMessage(), "SQL Error!", JOptionPane.ERROR_MESSAGE);
+            exp.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException exp) {
+                exp.printStackTrace();
+            }
+        }
+    }
+    }//GEN-LAST:event_deleteJButtonActionPerformed
 
    
     public static void main(String args[]) {
