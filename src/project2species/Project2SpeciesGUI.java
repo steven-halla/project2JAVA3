@@ -27,7 +27,8 @@ import java.sql.PreparedStatement;
 
 public class Project2SpeciesGUI extends javax.swing.JFrame {
     
-    
+        ArrayList<String[]> speciesData = fetchSpeciesNamesWithPopulation();
+
     private final String SPECIES_TEXT_FILE = "src/project2species/SpeciesList.txt";
     private  ArrayList<Species> animals = new ArrayList<Species>();
     private Species myPerson = new Species();
@@ -90,6 +91,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        sortByNameAscMenuItem = new javax.swing.JMenuItem();
+        sortByPopulationJMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         detailsJMenuItem = new javax.swing.JMenuItem();
 
@@ -270,6 +273,24 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Sort");
+
+        sortByNameAscMenuItem.setText("SortByNameAsc");
+        sortByNameAscMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortByNameAscMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(sortByNameAscMenuItem);
+
+        sortByPopulationJMenuItem.setText("SortByPopulation");
+        sortByPopulationJMenuItem.setToolTipText("");
+        sortByPopulationJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortByPopulationJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(sortByPopulationJMenuItem);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Database Management");
@@ -412,6 +433,35 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     speciesListJList.setModel(model);
 }
 
+      private ArrayList<String[]> fetchSpeciesSortedByPopulation() {
+    ArrayList<String[]> speciesData = new ArrayList<>();
+    String query = "SELECT name, population FROM SpeciesTable ORDER BY population DESC";  
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+        
+        while (rs.next()) {
+            String[] data = new String[2];
+            data[0] = rs.getString("name");
+            data[1] = String.valueOf(rs.getInt("population"));
+            speciesData.add(data);
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return speciesData;
+}
+
+    private void updateSpeciesListJList(ArrayList<String[]> speciesData) {
+    DefaultListModel<String> model = new DefaultListModel<>();
+    for (String[] data : speciesData) {
+        String name = data[0];
+        String population = data[1];
+        model.addElement(name + " (Population: " + population + ")");
+    }
+    speciesListJList.setModel(model);
+}
     
      private void createDB()
             
@@ -1047,6 +1097,38 @@ private Species findSpeciesByGenus(String genus) {
     }
     }//GEN-LAST:event_searchJTextFieldActionPerformed
 
+    private void sortByNameAscMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByNameAscMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sortByNameAscMenuItemActionPerformed
+
+    private void sortByPopulationJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByPopulationJMenuItemActionPerformed
+        // TODO add your handling code here:
+           ArrayList<String[]> speciesData = fetchSpeciesSortedByPopulation();
+    
+    // Update the JList with the sorted data
+    updateSpeciesListJList(speciesData);
+    }//GEN-LAST:event_sortByPopulationJMenuItemActionPerformed
+
+    private ArrayList<String[]> fetchSpeciesNamesWithPopulation() {
+    ArrayList<String[]> speciesData = new ArrayList<>();
+    String query = "SELECT name, population FROM SpeciesTable";  
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+        
+        while (rs.next()) {
+            String[] data = new String[2];
+            data[0] = rs.getString("name");
+            data[1] = String.valueOf(rs.getInt("population"));
+            speciesData.add(data);
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return speciesData;
+}
+
    
     public static void main(String args[]) {
    
@@ -1086,6 +1168,8 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JLabel populationJLabel;
     private javax.swing.JTextField searchJTextField;
+    private javax.swing.JMenuItem sortByNameAscMenuItem;
+    private javax.swing.JMenuItem sortByPopulationJMenuItem;
     private javax.swing.JList<String> speciesListJList;
     private javax.swing.JScrollPane speciesListJjScrollPane;
     // End of variables declaration//GEN-END:variables
