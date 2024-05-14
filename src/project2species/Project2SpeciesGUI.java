@@ -378,41 +378,77 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
                 "File Read Error!", JOptionPane.ERROR_MESSAGE);
     }
 }
+     
 
-     private void speciesSelector() {
-    System.out.println("Number of Species in the list: " + speciesListJList.getModel().getSize());
-
+   private void speciesSelector() {
     speciesListJList.addListSelectionListener(new ListSelectionListener() {
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
                 String selectedSpeciesDetails = speciesListJList.getSelectedValue();
                 if (selectedSpeciesDetails != null) {
-                    // Assuming each species detail is split by comma and the first entry is the name
-                    String[] details = selectedSpeciesDetails.split(",");
-                    String selectedSpeciesName = details[0];
+                    String[] details = selectedSpeciesDetails.trim().split(",", -1); // Ensuring trimming and preserving empty
+                    String selectedSpeciesName = details[0].trim();
+                    String selectedSpeciesGenus = details.length > 1 && !details[1].trim().isEmpty() ? details[1].trim() : "Unknown";
 
-                    // Optionally, you can find and use the Species object if you have a method to do so
+                    System.out.println("Parsed name: " + selectedSpeciesName + ", Parsed genus: " + selectedSpeciesGenus);
+
+                    // Finding species by name
                     Species selectedSpecies = findSpeciesByName(selectedSpeciesName);
                     if (selectedSpecies != null) {
-                        System.out.println("Selected Species Info: " + selectedSpecies);
+                        System.out.println("Selected Species Info by Name: " + selectedSpecies);
+                        NameOfSpeciesJTextField.setText(selectedSpecies.getName());
                     } else {
-                        System.out.println("Species not found in the list");
+                        System.out.println("Species not found by name in the list");
+                        NameOfSpeciesJTextField.setText("");
                     }
+
+                    // Finding species by genus
+                    Species speciesByGenus = findSpeciesByGenus(selectedSpeciesGenus);
+                    if (speciesByGenus != null) {
+                        System.out.println("Selected Species Info by Genus: " + speciesByGenus);
+                        GenusJTextField.setText(speciesByGenus.getGenus());
+                    } else {
+                        System.out.println("Species not found by genus in the list");
+                        GenusJTextField.setText("Unknown");
+                    }
+                } else {
+                    NameOfSpeciesJTextField.setText("");
+                    GenusJTextField.setText("");
+                    System.out.println("No species selected");
                 }
             }
         }
     });
 }
 
+             
+
+
+
+
+
+
+
+
+
 private Species findSpeciesByName(String name) {
-    // Assuming 'animals' is an ArrayList<Species> storing all species
     for (Species species : animals) {
         if (species.getName().equals(name)) {
             return species;
         }
     }
-    return null;  // Return null if no match is found
+    return null;  
 }
+
+private Species findSpeciesByGenus(String genus) {
+    for (Species species : animals) {
+        if (species.getGenus().equals(genus)) {
+            return species;
+        }
+    }
+    return null;
+}
+
 
      
     
@@ -420,6 +456,8 @@ private Species findSpeciesByName(String name) {
     
     private void GenusJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenusJTextFieldActionPerformed
         // TODO add your handling code here:
+                  System.out.println("Action performed on NameOfSpeciesJTextField: " + GenusJTextField.getText());
+
     }//GEN-LAST:event_GenusJTextFieldActionPerformed
 
     private void DietJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DietJTextFieldActionPerformed
@@ -435,7 +473,8 @@ private Species findSpeciesByName(String name) {
     }//GEN-LAST:event_PredatorsJTextFieldActionPerformed
 
     private void NameOfSpeciesJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameOfSpeciesJTextFieldActionPerformed
-        // TODO add your handling code here:
+          System.out.println("Action performed on NameOfSpeciesJTextField: " + NameOfSpeciesJTextField.getText());
+
     }//GEN-LAST:event_NameOfSpeciesJTextFieldActionPerformed
 
    
