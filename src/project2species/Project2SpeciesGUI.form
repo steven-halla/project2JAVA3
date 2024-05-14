@@ -24,13 +24,13 @@
             <Property name="text" type="java.lang.String" value="Database Management"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="searchJMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="detailsJMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="search"/>
+                <Property name="text" type="java.lang.String" value="Details"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchJMenuItemActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="detailsJMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

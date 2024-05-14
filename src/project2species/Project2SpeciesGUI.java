@@ -91,7 +91,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        searchJMenuItem = new javax.swing.JMenuItem();
+        detailsJMenuItem = new javax.swing.JMenuItem();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -274,14 +274,14 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
 
         jMenu3.setText("Database Management");
 
-        searchJMenuItem.setText("search");
-        searchJMenuItem.setToolTipText("");
-        searchJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        detailsJMenuItem.setText("Details");
+        detailsJMenuItem.setToolTipText("");
+        detailsJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchJMenuItemActionPerformed(evt);
+                detailsJMenuItemActionPerformed(evt);
             }
         });
-        jMenu3.add(searchJMenuItem);
+        jMenu3.add(detailsJMenuItem);
 
         jMenuBar1.add(jMenu3);
 
@@ -916,9 +916,61 @@ private Species findSpeciesByGenus(String genus) {
     }
     }//GEN-LAST:event_deleteJButtonActionPerformed
 
-    private void searchJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJMenuItemActionPerformed
+    private void detailsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsJMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchJMenuItemActionPerformed
+        // Get the selected species name from the JList
+    String selectedSpeciesName = speciesListJList.getSelectedValue();
+    if (selectedSpeciesName == null || selectedSpeciesName.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please select a species from the list.", "No Species Selected", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // SQL query to fetch details of the selected species
+    String query = "SELECT * FROM SpeciesTable WHERE name = ?";
+
+    try {
+        Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+        PreparedStatement pstmt = con.prepareStatement(query);
+
+        // Setting the parameter for the prepared statement
+        pstmt.setString(1, selectedSpeciesName);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        // Process the result set
+        if (rs.next()) {
+            String name = rs.getString("name");
+            String genus = rs.getString("genus");
+            int population = rs.getInt("population");
+            String diet = rs.getString("diet");
+            String habitat = rs.getString("habitat");
+            String predators = rs.getString("predators");
+
+            // Create a detailed message
+            StringBuilder details = new StringBuilder();
+            details.append("Species Details:\n");
+            details.append("Name: ").append(name).append("\n");
+            details.append("Genus: ").append(genus).append("\n");
+            details.append("Population: ").append(population).append("\n");
+            details.append("Diet: ").append(diet).append("\n");
+            details.append("Habitat: ").append(habitat).append("\n");
+            details.append("Predators: ").append(predators).append("\n");
+
+            // Display the detailed message in a message dialog
+            JOptionPane.showMessageDialog(null, details.toString(), "Species Details", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No details found for the selected species.", "No Details Found", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        rs.close();
+        pstmt.close();
+        con.close();
+
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
+        exp.printStackTrace();
+    }
+    }//GEN-LAST:event_detailsJMenuItemActionPerformed
 
     private void searchJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJTextFieldActionPerformed
         // TODO add your handling code here:
@@ -1019,6 +1071,7 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JButton addJButton;
     private javax.swing.JPanel bottomButtonsJPanel;
     private javax.swing.JButton deleteJButton;
+    private javax.swing.JMenuItem detailsJMenuItem;
     private javax.swing.JButton editJButton;
     private javax.swing.JButton exitJButton;
     private javax.swing.JLabel imageMainJLabel;
@@ -1032,7 +1085,6 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JLabel populationJLabel;
-    private javax.swing.JMenuItem searchJMenuItem;
     private javax.swing.JTextField searchJTextField;
     private javax.swing.JList<String> speciesListJList;
     private javax.swing.JScrollPane speciesListJjScrollPane;
