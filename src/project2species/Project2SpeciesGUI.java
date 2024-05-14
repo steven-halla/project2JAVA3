@@ -47,8 +47,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
 
 
 
-        readFromTextFile(SPECIES_TEXT_FILE);
-        createDB();
+//        readFromTextFile(SPECIES_TEXT_FILE);
+//        createDB();
         String url = DB_URL;
         String user = USER;
         String password = PASS;
@@ -102,6 +102,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         });
 
         editJButton.setText("Edit");
+        editJButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editJButtonActionPerformed(evt);
+            }
+        });
 
         deleteJButton.setText("Delete");
 
@@ -333,7 +338,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     
     private ArrayList<String> fetchSpeciesNames() {
     ArrayList<String> names = new ArrayList<>();
-    String query = "SELECT name FROM SpeciesTable";  // Adjust if your column name differs
+    String query = "SELECT name FROM SpeciesTable";  
     try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
          Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery(query)) {
@@ -744,6 +749,66 @@ private Species findSpeciesByGenus(String genus) {
     }
          
     }//GEN-LAST:event_addJButtonActionPerformed
+
+    private void editJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJButtonActionPerformed
+        // TODO add your handling code here:
+          // Check if a species is selected
+    if (NameOfSpeciesJTextField.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please select a species.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Get selected species details
+    String selectedSpeciesName = NameOfSpeciesJTextField.getText();
+    String selectedSpeciesGenus = GenusJTextField.getText();
+    int selectedSpeciesPopulation = Integer.parseInt(PopulationJTextField.getText());
+    String selectedSpeciesDiet = DietJTextField.getText();
+    String selectedSpeciesHabitat = HabitatJTextField.getText();
+    String selectedSpeciesPredator = PredatorsJTextField.getText();
+
+    // Create a Species object with the selected details
+    Species selectedSpecies = new Species(selectedSpeciesName, selectedSpeciesGenus, selectedSpeciesPopulation, selectedSpeciesDiet, selectedSpeciesHabitat, selectedSpeciesPredator);
+
+    // Open the EditSpecies form
+    EditSpecies myEditForm = new EditSpecies(this, true, selectedSpecies);
+    myEditForm.setVisible(true);
+
+    // After the dialog is closed, get the updated species
+    Species updatedSpecies = myEditForm.getSpecies();
+
+    // Update the display with the edited species details
+    NameOfSpeciesJTextField.setText(updatedSpecies.getName());
+    GenusJTextField.setText(updatedSpecies.getGenus());
+    PopulationJTextField.setText(String.valueOf(updatedSpecies.getPopulation()));
+    DietJTextField.setText(updatedSpecies.getDiet());
+    HabitatJTextField.setText(updatedSpecies.getHabitat());
+    PredatorsJTextField.setText(updatedSpecies.getPredators());
+           // Get selected species details
+//    String selectedSpeciesName = NameOfSpeciesJTextField.getText();
+//    String selectedSpeciesGenus = GenusJTextField.getText();
+//    int selectedSpeciesPopulation = Integer.parseInt(PopulationJTextField.getText());
+//    String selectedSpeciesDiet = DietJTextField.getText();
+//    String selectedSpeciesHabitat = HabitatJTextField.getText();
+//    String selectedSpeciesPredator = PredatorsJTextField.getText();
+//
+//    // Create a Species object with the selected details
+//    Species selectedSpecies = new Species(selectedSpeciesName, selectedSpeciesGenus, selectedSpeciesPopulation, selectedSpeciesDiet, selectedSpeciesHabitat, selectedSpeciesPredator);
+//
+//    // Open the EditSpecies form
+//    EditSpecies myEditForm = new EditSpecies(this, true, selectedSpecies);
+//    myEditForm.setVisible(true);
+//
+//    // After the dialog is closed, get the updated species
+//    Species updatedSpecies = myEditForm.getSpecies();
+//
+//    // Update the display with the edited species details
+//    NameOfSpeciesJTextField.setText(updatedSpecies.getName());
+//    GenusJTextField.setText(updatedSpecies.getGenus());
+//    PopulationJTextField.setText(String.valueOf(updatedSpecies.getPopulation()));
+//    DietJTextField.setText(updatedSpecies.getDiet());
+//    HabitatJTextField.setText(updatedSpecies.getHabitat());
+//    PredatorsJTextField.setText(updatedSpecies.getPredators());
+    }//GEN-LAST:event_editJButtonActionPerformed
 
    
     public static void main(String args[]) {
