@@ -408,26 +408,27 @@ public AddSpecies(Species species) {
     }
 
     // Validate that name, genus, diet, habitat, and predators contain only letters
-    if (!name.matches("[a-zA-Z]+")) {
-        isValid = false;
-        validationMessage.append("- Name must contain only letters.\n");
-    }
-    if (!genus.matches("[a-zA-Z]+")) {
-        isValid = false;
-        validationMessage.append("- Genus must contain only letters.\n");
-    }
-    if (!diet.matches("[a-zA-Z]+")) {
-        isValid = false;
-        validationMessage.append("- Diet must contain only letters.\n");
-    }
-    if (!habitat.matches("[a-zA-Z]+")) {
-        isValid = false;
-        validationMessage.append("- Habitat must contain only letters.\n");
-    }
-    if (!predators.matches("[a-zA-Z]+")) {
-        isValid = false;
-        validationMessage.append("- Predators must contain only letters.\n");
-    }
+if (!name.matches("[a-zA-Z ]+")) {
+    isValid = false;
+    validationMessage.append("- Name must contain only letters and spaces.\n");
+}
+if (!genus.matches("[a-zA-Z ]+")) {
+    isValid = false;
+    validationMessage.append("- Genus must contain only letters and spaces.\n");
+}
+if (!diet.matches("[a-zA-Z ]+")) {
+    isValid = false;
+    validationMessage.append("- Diet must contain only letters and spaces.\n");
+}
+if (!habitat.matches("[a-zA-Z ]+")) {
+    isValid = false;
+    validationMessage.append("- Habitat must contain only letters and spaces.\n");
+}
+if (!predators.matches("[a-zA-Z ]+")) {
+    isValid = false;
+    validationMessage.append("- Predators must contain only letters and spaces.\n");
+}
+
 
     // If validations fail, show the error messages and return
     if (!isValid) {

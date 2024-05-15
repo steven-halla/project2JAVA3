@@ -138,6 +138,9 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         sortByPopulationJMenuItem = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         detailsJMenuItem = new javax.swing.JMenuItem();
+        AddJMenuItem = new javax.swing.JMenuItem();
+        editJMenuItem = new javax.swing.JMenuItem();
+        deleteJMenuItem = new javax.swing.JMenuItem();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -391,6 +394,30 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
             }
         });
         jMenu3.add(detailsJMenuItem);
+
+        AddJMenuItem.setText("Add");
+        AddJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(AddJMenuItem);
+
+        editJMenuItem.setText("Edit");
+        editJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(editJMenuItem);
+
+        deleteJMenuItem.setText("Delete");
+        deleteJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu3.add(deleteJMenuItem);
 
         jMenuBar1.add(jMenu3);
 
@@ -1823,6 +1850,180 @@ private Species findSpeciesByGenus(String genus) {
                         System.exit(0);
 
     }//GEN-LAST:event_exitJMenuItemActionPerformed
+   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: AddJMenuItemActionPerformed
+ * Description: Handles the action event for the Add button. This method opens
+ * the AddSpecies dialog, waits for user input, and retrieves the new species
+ * data entered by the user. It includes debug statements to trace the dialog
+ * creation and data retrieval process.
+ *
+ * @param evt The action event triggered by clicking the Add button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    private void AddJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddJMenuItemActionPerformed
+        // TODO add your handling code here:
+           System.out.println("Opening AddSpecies dialog...");
+    try {
+        // Open AddSpecies dialog
+        AddSpecies myAddForm = new AddSpecies(this, true);
+        System.out.println("Dialog created");
+        myAddForm.setVisible(true);
+        System.out.println("Dialog should now be visible");
+
+        // Check if the dialog is visible
+        if (myAddForm.isVisible()) {
+            System.out.println("Dialog is visible");
+        } else {
+            System.out.println("Dialog is not visible");
+        }
+
+        // Get the new species data from the form
+        Species newSpecies = myAddForm.getSpecies();
+        if (newSpecies != null) {
+            System.out.println("New species data retrieved: " + newSpecies.getName());
+        } else {
+            System.out.println("No new species data retrieved");
+        }
+    } catch (Exception exp) {
+        exp.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error opening the AddSpecies form", "Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_AddJMenuItemActionPerformed
+
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: editJMenuItemActionPerformed
+ * Description: Handles the action event for the Edit button. This method checks
+ * if a species is selected, retrieves the selected species details, opens the 
+ * EditSpecies dialog with the details, and updates the display with the edited
+ * species details after the dialog is closed.
+ *
+ * @param evt The action event triggered by clicking the Edit button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    private void editJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJMenuItemActionPerformed
+        // TODO add your handling code here:
+                 // Check if a species is selected
+    if (NameOfSpeciesJTextField.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please select a species.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+    // Get selected species details
+    String selectedSpeciesName = NameOfSpeciesJTextField.getText();
+    String selectedSpeciesGenus = GenusJTextField.getText();
+    int selectedSpeciesPopulation = Integer.parseInt(PopulationJTextField.getText());
+    String selectedSpeciesDiet = DietJTextField.getText();
+    String selectedSpeciesHabitat = HabitatJTextField.getText();
+    String selectedSpeciesPredator = PredatorsJTextField.getText();
+
+    // Create a Species object with the selected details
+    Species selectedSpecies = new Species(selectedSpeciesName, selectedSpeciesGenus, selectedSpeciesPopulation, selectedSpeciesDiet, selectedSpeciesHabitat, selectedSpeciesPredator);
+
+    // Open the EditSpecies form
+    EditSpecies myEditForm = new EditSpecies(this, true, selectedSpecies);
+    myEditForm.setVisible(true);
+
+    // After the dialog is closed, get the updated species
+    Species updatedSpecies = myEditForm.getSpecies();
+
+    // Update the display with the edited species details
+    NameOfSpeciesJTextField.setText(updatedSpecies.getName());
+    GenusJTextField.setText(updatedSpecies.getGenus());
+    PopulationJTextField.setText(String.valueOf(updatedSpecies.getPopulation()));
+    DietJTextField.setText(updatedSpecies.getDiet());
+    HabitatJTextField.setText(updatedSpecies.getHabitat());
+    PredatorsJTextField.setText(updatedSpecies.getPredators());
+
+    }//GEN-LAST:event_editJMenuItemActionPerformed
+
+    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: deleteJMenuItemActionPerformed
+ * Description: Handles the action event for the Delete button. This method checks
+ * if a species is selected from the list, confirms the deletion from the user,
+ * deletes the selected species from the database, and updates the species list.
+ * It also handles SQL exceptions and updates the GUI components accordingly.
+ *
+ * @param evt The action event triggered by clicking the Delete button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    private void deleteJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteJMenuItemActionPerformed
+        // TODO add your handling code here:
+               // TODO add your handling code here:
+         String selectedSpeciesName = speciesListJList.getSelectedValue();
+    if (selectedSpeciesName == null) {
+        JOptionPane.showMessageDialog(this, "Please select a species to delete.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Confirm the deletion
+    int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete " + selectedSpeciesName + "?", "Delete Species", JOptionPane.YES_NO_OPTION);
+    
+    if (result == JOptionPane.YES_OPTION) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            // Establish a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            // Prepare the SQL DELETE statement
+            String query = "DELETE FROM SpeciesTable WHERE name = ?";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, selectedSpeciesName);
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                JOptionPane.showMessageDialog(this, "Species deleted successfully.", "Deletion Successful", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Species not found or could not be deleted.", "Deletion Failed", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Update the JList to reflect the changes
+            updateSpeciesListJList();
+
+            // Clear the text fields
+            NameOfSpeciesJTextField.setText("");
+            GenusJTextField.setText("");
+            PopulationJTextField.setText("");
+            DietJTextField.setText("");
+            HabitatJTextField.setText("");
+            PredatorsJTextField.setText("");
+
+        } catch (SQLException exp) {
+            JOptionPane.showMessageDialog(this, "SQL error: " + exp.getMessage(), "SQL Error!", JOptionPane.ERROR_MESSAGE);
+            exp.printStackTrace();
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException exp) {
+                exp.printStackTrace();
+            }
+        }
+    }
+    }//GEN-LAST:event_deleteJMenuItemActionPerformed
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method: fetchSpeciesNamesWithPopulation
  * Description: Retrieves the names and population of species from the database.
@@ -1887,6 +2088,7 @@ private Species findSpeciesByGenus(String genus) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem AddJMenuItem;
     private javax.swing.JLabel DietJLabel;
     private javax.swing.JTextField DietJTextField;
     private javax.swing.JLabel GenusJLabel;
@@ -1900,8 +2102,10 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JButton addJButton;
     private javax.swing.JPanel bottomButtonsJPanel;
     private javax.swing.JButton deleteJButton;
+    private javax.swing.JMenuItem deleteJMenuItem;
     private javax.swing.JMenuItem detailsJMenuItem;
     private javax.swing.JButton editJButton;
+    private javax.swing.JMenuItem editJMenuItem;
     private javax.swing.JButton exitJButton;
     private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JLabel imageMainJLabel;
