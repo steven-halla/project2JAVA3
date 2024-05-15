@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * Hourse       4 hours and 17 minutes
  * Date         4/5/2021
   History Log   7/18/2018, 5/7/2020
- * @author	<i>Niko Culevski</i>
+ * @author	<i>Steven Halla</i>
  * @version 	%1% %2%
  * @see     	javax.swing.JFrame
  * @see         java.awt.Toolkit 
@@ -48,7 +48,7 @@ public class CreateAddressBookDB implements MySQLConnection {
  * Hourse       4 hours and 17 minutes
  * Date         4/5/2021
   History Log   7/18/2018, 5/7/2020
- * @author	<i>Niko Culevski</i>
+ * @author	<i>Steven Halla</i>
  * @param        args are the command line strings
  
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -107,9 +107,13 @@ catch(SQLException exp)
 }
       /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method       readFromTextFile()
-     * Description  Reads text file and creates an arraylist with persons.
+     * Description   Reads a text file containing species data, parses each line 
+     *              to create Species objects, and adds them to an ArrayList.
+     *              The text file should contain comma-separated values for each 
+     *              species, with the following fields in order: name, genus, 
+     *              population, diet, habitat, and predators.
      * Date:        4/23/2019
-     * @author      <i>Niko Culevski</i>
+     * @author      <i>Steven Halla</i>
      * @param       textFile String
      *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     private static void readFromTextFile(String textFile)

@@ -445,6 +445,27 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
     speciesListJList.setModel(model);
 }
+    
+  private ArrayList<String[]> fetchSpeciesSortedByNameAsc() {
+    ArrayList<String[]> speciesData = new ArrayList<>();
+    String query = "SELECT name FROM SpeciesTable ORDER BY name ASC";  // Order by name in ascending order
+    try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query)) {
+        
+        while (rs.next()) {
+            String[] data = new String[1];
+            data[0] = rs.getString("name");
+            speciesData.add(data);
+        }
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(),
+                                      "SQL Error!", JOptionPane.ERROR_MESSAGE);
+    }
+    return speciesData;
+}
+
+
 
       private ArrayList<String[]> fetchSpeciesSortedByPopulation() {
     ArrayList<String[]> speciesData = new ArrayList<>();
@@ -475,6 +496,16 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
     speciesListJList.setModel(model);
 }
+    
+    private void updateSpeciesListJListNameAsc(ArrayList<String[]> speciesData) {
+    DefaultListModel<String> model = new DefaultListModel<>();
+    for (String[] data : speciesData) {
+        String name = data[0];
+        model.addElement(name);
+    }
+    speciesListJList.setModel(model);
+}
+
     
      private void createDB()
             
@@ -1110,8 +1141,13 @@ private Species findSpeciesByGenus(String genus) {
     }
     }//GEN-LAST:event_searchJTextFieldActionPerformed
 
+    
+    
     private void sortByNameAscMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByNameAscMenuItemActionPerformed
         // TODO add your handling code here:
+            ArrayList<String[]> speciesNames = fetchSpeciesSortedByNameAsc();
+    updateSpeciesListJListNameAsc(speciesNames);
+
     }//GEN-LAST:event_sortByNameAscMenuItemActionPerformed
 
     private void sortByPopulationJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByPopulationJMenuItemActionPerformed

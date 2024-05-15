@@ -14,15 +14,19 @@ import java.sql.SQLException;
 
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Class        AddPerson.java
- * Description  A class used to both add and edit a person into the DB.
+ * Class        AddSpecies.java
+ * Description  A class used to   edit a species in the database.
+ *              This class provides a GUI form to input species details.
+ * Platform     jdk 1.8.0_241; NetBeans IDE 11.3; PC Windows 10
  * Course       CS 143
  * Hourse       1 hours and 12 minutes
  * Date         5/1/2021
-  History Log   7/18/2018, 5/7/2020, 4/5/2021
- * @author	<i>Niko Culevski</i>
- * @version 	%1% %2%
+ * History Log  7/18/2018, 5/7/2020, 4/5/2021
+ * @author      <i>Steven Halla</i>
+ * @version     %1% %2%
+ * @see         javax.swing.JDialog
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 public class AddSpecies extends javax.swing.JDialog
 {
     // class instance variables
@@ -41,14 +45,16 @@ public class AddSpecies extends javax.swing.JDialog
     private final Color pink = Color.PINK;
      // Background color for bad input textfield
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--default constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Add Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
+ /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  AddSpecies()--default constructor
+ * Description  Create an instance of the GUI form and sets icon image.
+ *              Centers the form, sets the default button, and makes the 
+ *              dialog modal.
+ * Date         4/5/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public AddSpecies()
     {
         initComponents();
@@ -62,15 +68,17 @@ public class AddSpecies extends javax.swing.JDialog
         setModal(true);        
     }
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--overloaded constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Edit Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-     * @param       friend Person
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  AddSpecies(Species species)--overloaded constructor
+ * Description  Create an instance of the GUI form, initializes the form with
+ *              the provided Species object, and sets the text fields with 
+ *              the species data.
+ * Date         4/5/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       species The Species object containing data to populate the form
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 public AddSpecies(Species species) {
     this(); // Call default constructor to build GUI
     mySpecies = species;
@@ -83,16 +91,19 @@ public AddSpecies(Species species) {
 
 }
 
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--overloaded constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Edit Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-     * @param       parent Frame
-     * @param       modal  boolean
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  AddSpecies(java.awt.Frame parent, boolean modal)
+ * Description  Create an instance of the GUI form with specified parent and 
+ *              modal settings. Sets the form to the center and sets the default
+ *              button.
+ * Date         4/5/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       parent The parent frame of this dialog
+ * @param       modal  Specifies whether dialog blocks user input to other 
+ *                     top-level windows when shown
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public AddSpecies(java.awt.Frame parent, boolean modal)
     {
         super(parent, modal);
@@ -104,19 +115,34 @@ public AddSpecies(Species species) {
         this.getRootPane().setDefaultButton(addJButton);                        
     }
     
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  AddSpecies(Project2SpeciesGUI mainGui, boolean modal)
+ * Description  Create an instance of the GUI form with specified main GUI and
+ *              modal settings.
+ * Date         4/5/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       mainGui The main GUI of the application
+ * @param       modal   Specifies whether dialog blocks user input to other 
+ *                      top-level windows when shown
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+    
     public AddSpecies(Project2SpeciesGUI mainGui, boolean modal) {
     super((java.awt.Frame) null, modal);
     this.mainGui = mainGui;
     initComponents();
 }
 
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method:      getPerson()
-     * Description: Returns the person added or edited.
-     * Date:        5/12/16
-     * @author      Niko Culevski
-     * @return      Person
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       getSpecies()
+ * Description  Returns the species that was added or edited.
+ * Date         5/12/16
+ * History Log  8/24/2016, 4/3/2020
+ * @author      <i>Steven Halla</i>
+ * @return      Species The species that was added 
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public Species getSpecies()
     {
         return mySpecies;
@@ -326,25 +352,31 @@ public AddSpecies(Species species) {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       quitJButtonActionPerformed()
-     * Description  Dispose the Add form. Uses the Validation class to
-     *              validate input fields.
-     * Date         4/26/2021
-     * @param       evt java.awt.event.ActionEvent
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      quitJButtonActionPerformed()
+ * Description: Dispose the Add form. Uses the Validation class to validate 
+ *              input fields.
+ * Date:        4/26/2021
+ * History Log: 7/18/2018, 5/7/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.ActionEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
     {//GEN-HEADEREND:event_quitJButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_quitJButtonActionPerformed
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       addJButtonActionPerformed()
-     * Description  Add new person.
-     * Date         4/26/2021
-     * @param       evt java.awt.event.ActionEvent
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addJButtonActionPerformed()
+ * Description: Add new species to the database. Retrieves data from input 
+ *              fields, prepares and executes an SQL insert statement, and 
+ *              updates the species list if successful.
+ * Date:        4/26/2021
+ * History Log: 7/18/2018, 5/7/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.ActionEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addJButtonActionPerformed
     {//GEN-HEADEREND:event_addJButtonActionPerformed
 
@@ -454,28 +486,29 @@ try {
      
     }//GEN-LAST:event_addJButtonActionPerformed
 
-   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       firstJTextFieldFocusGained()
-     * Description  Highlight firstJTextFieldFocusGained as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addNameJTextFieldFocusGained()
+ * Description: Highlights the addNameJTextField text field when it gains focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addNameJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addNameJTextFieldFocusGained
     {//GEN-HEADEREND:event_addNameJTextFieldFocusGained
         addNameJTextField.selectAll();
     }//GEN-LAST:event_addNameJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     *<pre>
-     * Method       firstJTextFieldFocusLost()
-     * Description  Change color of firstJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *</pre>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addNameJTextFieldFocusLost()
+ * Description: Changes the background color of addNameJTextField based on 
+ *              the validity of the input when the focus is lost.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addNameJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addNameJTextFieldFocusLost
     {//GEN-HEADEREND:event_addNameJTextFieldFocusLost
         String input = addNameJTextField.getText();
@@ -484,26 +517,30 @@ try {
         else
             addNameJTextField.setBackground(pink);
     }//GEN-LAST:event_addNameJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       lastJTextFieldFocusGained()
-     * Description  Highlight lastJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addGenusJTextFieldFocusGained()
+ * Description: Highlights the entire text in addGenusJTextField when it 
+ *              gains focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addGenusJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addGenusJTextFieldFocusGained
     {//GEN-HEADEREND:event_addGenusJTextFieldFocusGained
         addGenusJTextField.selectAll();
     }//GEN-LAST:event_addGenusJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       lastJTextFieldFocusLost()
-     * Description  Change color of lastJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addGenusJTextFieldFocusLost()
+ * Description: Validates the input in addGenusJTextField when focus is lost.
+ *              Changes the background color to indicate validity.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addGenusJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addGenusJTextFieldFocusLost
     {//GEN-HEADEREND:event_addGenusJTextFieldFocusLost
         String input = addGenusJTextField.getText();
@@ -512,26 +549,29 @@ try {
         else
             addGenusJTextField.setBackground(pink);
     }//GEN-LAST:event_addGenusJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       ageJTextFieldFocusGained()
-     * Description  Highlight ageJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addPopulationJTextFieldFocusGained()
+ * Description: Highlights the text in addPopulationJTextField when it gains focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addPopulationJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addPopulationJTextFieldFocusGained
     {//GEN-HEADEREND:event_addPopulationJTextFieldFocusGained
         addPopulationJTextField.selectAll();
     }//GEN-LAST:event_addPopulationJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       ageJTextFieldFocusLost()
-     * Description  Change color of lastJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addPopulationJTextFieldFocusLost()
+ * Description: Changes the background color of addPopulationJTextField based 
+ *              on the validity of the input when focus is lost.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addPopulationJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addPopulationJTextFieldFocusLost
     {//GEN-HEADEREND:event_addPopulationJTextFieldFocusLost
         String input = addPopulationJTextField.getText();
@@ -540,26 +580,30 @@ try {
         else
             addPopulationJTextField.setBackground(pink);
     }//GEN-LAST:event_addPopulationJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       cityJTextFieldFocusGained()
-     * Description  Highlight cityJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addHabitatJTextFieldFocusGained()
+ * Description: Highlights the text in addHabitatJTextField when the field 
+ *              gains focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addHabitatJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addHabitatJTextFieldFocusGained
     {//GEN-HEADEREND:event_addHabitatJTextFieldFocusGained
         addHabitatJTextField.selectAll();
     }//GEN-LAST:event_addHabitatJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       cityJTextFieldFocusLost()
-     * Description  Change color of cityJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addHabitatJTextFieldFocusLost()
+ * Description: Changes the background color of addHabitatJTextField based on 
+ *              the validity of the input when the field loses focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void addHabitatJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_addHabitatJTextFieldFocusLost
     {//GEN-HEADEREND:event_addHabitatJTextFieldFocusLost
         String input = addHabitatJTextField.getText();
@@ -569,15 +613,54 @@ try {
             addHabitatJTextField.setBackground(pink);
     }//GEN-LAST:event_addHabitatJTextFieldFocusLost
 
+    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addPredatorsJTextFieldActionPerformed()
+ * Description: Handles the action event for addPredatorsJTextField. This method
+ *              is triggered when the user presses Enter while focused on the 
+ *              addPredatorsJTextField.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.ActionEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     private void addPredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldActionPerformed
         // TODO add your handling code here:
+        String input = addPredatorsJTextField.getText();
+    if (Validation.isValidName(input)) {
+        addPredatorsJTextField.setBackground(white);
+    } else {
+        addPredatorsJTextField.setBackground(pink);
+    }
+
     }//GEN-LAST:event_addPredatorsJTextFieldActionPerformed
+
+    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addPredatorsJTextFieldFocusGained()
+ * Description: Selects all text in addPredatorsJTextField when the field gains focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void addPredatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusGained
         // TODO add your handling code here:
             addPredatorsJTextField.selectAll();
 
     }//GEN-LAST:event_addPredatorsJTextFieldFocusGained
+
+    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addPredatorsJTextFieldFocusLost()
+ * Description: Changes the background color of addPredatorsJTextField based on 
+ *              whether the input is valid when the field loses focus.
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void addPredatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusLost
         // TODO add your handling code here:
@@ -589,24 +672,10 @@ try {
     }//GEN-LAST:event_addPredatorsJTextFieldFocusLost
 
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Method       predatorsJTextFieldFocusGained()
- * Description  Highlight predatorsJTextField as focus is gained.
- * @param       java.awt.event.FocusEvent
- * @author      <i>Niko Culevski</i>
- * Date         4/5/2021
- * History log  8/24/2016, 4/3/2020
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  
                                           
 
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Method       predatorsJTextFieldFocusLost()
- * Description  Change color of predatorsJTextField according to valid input.
- * @param       java.awt.event.FocusEvent
- * @author      <i>Niko Culevski</i>
- * Date         4/5/2021
- * History log  8/24/2016, 4/3/2020
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
