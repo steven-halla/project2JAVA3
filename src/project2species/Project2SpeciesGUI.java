@@ -137,9 +137,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        speciesListJList.setToolTipText("List of animals");
         speciesListJjScrollPane.setViewportView(speciesListJList);
 
         addJButton.setText("Add");
+        addJButton.setToolTipText("Add a new species to the database");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addJButtonActionPerformed(evt);
@@ -147,6 +149,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         });
 
         editJButton.setText("Edit");
+        editJButton.setToolTipText("Select a species from the list and then hit the Edit button");
         editJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editJButtonActionPerformed(evt);
@@ -154,6 +157,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         });
 
         deleteJButton.setText("Delete");
+        deleteJButton.setToolTipText("Deletes an entry from the DB");
         deleteJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteJButtonActionPerformed(evt);
@@ -161,6 +165,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         });
 
         exitJButton.setText("Exit");
+        exitJButton.setToolTipText("Exit Application");
 
         javax.swing.GroupLayout bottomButtonsJPanelLayout = new javax.swing.GroupLayout(bottomButtonsJPanel);
         bottomButtonsJPanel.setLayout(bottomButtonsJPanelLayout);
@@ -300,6 +305,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
 
         jLabel2.setText("Search:");
 
+        searchJTextField.setToolTipText("Type in your animal and hit the enter key");
         searchJTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchJTextFieldActionPerformed(evt);
@@ -309,6 +315,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenu1.setText("File");
 
         newJMenuItem.setText("New");
+        newJMenuItem.setToolTipText("Use a different DB table");
         newJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newJMenuItemActionPerformed(evt);
@@ -321,6 +328,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenu2.setText("Sort");
 
         sortByNameAscMenuItem.setText("SortByNameAsc");
+        sortByNameAscMenuItem.setToolTipText("Sort by Name ASC");
         sortByNameAscMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sortByNameAscMenuItemActionPerformed(evt);
@@ -329,7 +337,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenu2.add(sortByNameAscMenuItem);
 
         sortByPopulationJMenuItem.setText("SortByPopulation");
-        sortByPopulationJMenuItem.setToolTipText("");
+        sortByPopulationJMenuItem.setToolTipText("Sort by POP");
         sortByPopulationJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sortByPopulationJMenuItemActionPerformed(evt);
@@ -342,7 +350,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenu3.setText("Database Management");
 
         detailsJMenuItem.setText("Details");
-        detailsJMenuItem.setToolTipText("");
+        detailsJMenuItem.setToolTipText("Select a Species from the list and then view the details of the species. ");
         detailsJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 detailsJMenuItemActionPerformed(evt);

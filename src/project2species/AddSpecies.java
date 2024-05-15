@@ -266,6 +266,7 @@ public AddSpecies(Species species) {
         addJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         addJButton.setMnemonic('A');
         addJButton.setText("Add");
+        addJButton.setToolTipText("Add a speices to the DB");
         addJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addJButtonActionPerformed(evt);
