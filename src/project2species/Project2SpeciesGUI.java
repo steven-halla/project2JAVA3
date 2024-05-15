@@ -1953,6 +1953,8 @@ private Species findSpeciesByGenus(String genus) {
  * History Log: 4/4/2016, 11/21/2017
  * Author: <i>Steven Halla</i>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    
+    
     private void editJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJMenuItemActionPerformed
         // TODO add your handling code here:
                  // Check if a species is selected

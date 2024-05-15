@@ -35,6 +35,7 @@ import javax.swing.JOptionPane;
 public class CreateAddressBookDB implements MySQLConnection {
     
     private static final String SPECIES_TEXT_FILE = "src/project2species/SpeciesList.txt";
+    
     private static final ArrayList<Species> animals = new ArrayList<Species>();
     private Species mySpecies = new Species();
 
