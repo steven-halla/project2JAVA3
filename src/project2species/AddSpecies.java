@@ -473,6 +473,7 @@ if (!predators.matches("[a-zA-Z ]+")) {
         if (affectedRows > 0) {
             message = "Species added successfully!";
             mainGui.updateSpeciesListJList();
+
         }
 
         // Close form if successful

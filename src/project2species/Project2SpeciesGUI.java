@@ -52,6 +52,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     private  ArrayList<Species> animals = new ArrayList<Species>();
     private Species myPerson = new Species();
       private int currentName = 1, sizeOfDB;
+      private String selectedTableName = "SpeciesTable"; // Default to SpeciesTable
+
       
 //      public DefaultListModel speciesModel = new DefaultListModel();
       //build constructor in this class
@@ -592,8 +594,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private ArrayList<String> fetchSpeciesNames() {
-    ArrayList<String> names = new ArrayList<>();
-    String query = "SELECT name FROM SpeciesTable";  
+ArrayList<String> names = new ArrayList<>();
+    String query = "SELECT name FROM " + selectedTableName;  
     try (Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
          Statement stmt = con.createStatement();
          ResultSet rs = stmt.executeQuery(query)) {
@@ -1808,8 +1810,7 @@ private Species findSpeciesByGenus(String genus) {
 
     private void newJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newJMenuItemActionPerformed
         // TODO add your handling code here:
-            // Define an array of options
-    Object[] options = {"Java", "Python", "C++"};
+     Object[] options = {"SpeciesTable", "SpeciesTable2"};
     
     // Create a JComboBox with the options
     JComboBox<Object> comboBox = new JComboBox<>(options);
@@ -1818,7 +1819,7 @@ private Species findSpeciesByGenus(String genus) {
     int choice = JOptionPane.showConfirmDialog(
         this, // parentComponent - use "this" if this method is within a JFrame or JPanel
         comboBox, // component to display in the dialog
-        "Choose a programming language:", // message
+        "Choose a database:", // message
         JOptionPane.OK_CANCEL_OPTION, // option type
         JOptionPane.QUESTION_MESSAGE // message type
     );
@@ -1826,18 +1827,17 @@ private Species findSpeciesByGenus(String genus) {
     // Check if the user clicked OK
     if (choice == JOptionPane.OK_OPTION) {
         // Get the selected item from the JComboBox
-        String selectedLanguage = (String) comboBox.getSelectedItem();
+        String selectedDatabase = (String) comboBox.getSelectedItem();
         
         // Handle the selected option
-        switch (selectedLanguage) {
-            case "Java":
-                JOptionPane.showMessageDialog(this, "You chose Java. That's great! Keep coding!");
+        switch (selectedDatabase) {
+            case "SpeciesTable":
+                JOptionPane.showMessageDialog(this, "You chose SpeciesTable. Updating data...");
+                updateDatabaseTable("SpeciesTable");
                 break;
-            case "Python":
-                JOptionPane.showMessageDialog(this, "You chose Python. That's awesome!");
-                break;
-            case "C++":
-                JOptionPane.showMessageDialog(this, "You chose C++. That's powerful!");
+            case "SpeciesTable2":
+                JOptionPane.showMessageDialog(this, "You chose SpeciesTable2. Updating data...");
+                updateDatabaseTable("SpeciesTable2");
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Invalid selection!");
@@ -1846,7 +1846,14 @@ private Species findSpeciesByGenus(String genus) {
     }
         
     }//GEN-LAST:event_newJMenuItemActionPerformed
-
+private void updateDatabaseTable(String tableName) {
+    // Update your queries and methods to use the selected table
+    // For example, you can update a global variable with the selected table name
+    this.selectedTableName = tableName;
+    
+    // Refresh or reload data if necessary
+    updateSpeciesListJList();
+}
     
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method: exitJButtonActionPerformed
@@ -1953,8 +1960,6 @@ private Species findSpeciesByGenus(String genus) {
  * History Log: 4/4/2016, 11/21/2017
  * Author: <i>Steven Halla</i>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    
-    
     private void editJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJMenuItemActionPerformed
         // TODO add your handling code here:
                  // Check if a species is selected

@@ -1,0 +1,12 @@
+Siberian Tiger, Panthera tigris altaica, 500, Carnivore, Forests, Human
+Green Sea Turtle, Chelonia mydas, 85000, Herbivore, Coastal Waters, Shark
+Black Rhino, Diceros bicornis, 5600, Herbivore, Savannah, Human
+Asian Elephant, Elephas maximus, 40000, Herbivore, Forests, Human
+Red Panda, Ailurus fulgens, 10000, Herbivore, Temperate Forests, Snow Leopard
+African Wild Dog, Lycaon pictus, 6600, Carnivore, Savannah, Lion
+Western Lowland Gorilla, Gorilla gorilla gorilla, 100000, Herbivore, Tropical Forests, Human
+Leatherback Turtle, Dermochelys coriacea, 34000, Omnivore, Ocean, Human
+Sumatran Tiger, Panthera tigris sumatrae, 400, Carnivore, Rainforests, Human
+Bornean Orangutan, Pongo pygmaeus, 104700, Omnivore, Rainforests, Human
+Saola, Pseudoryx nghetinhensis, 100, Herbivore, Tropical Forests, Human
+Yangtze Finless Porpoise, Neophocaena asiaeorientalis ssp. asiaeorientalis, 1000, Carnivore, Freshwater, Human
