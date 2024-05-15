@@ -173,7 +173,6 @@ public AddSpecies(Species species) {
         quitJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         addPredatorsJTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         addTitleJLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -258,6 +257,11 @@ public AddSpecies(Species species) {
                 addHabitatJTextFieldFocusLost(evt);
             }
         });
+        addHabitatJTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addHabitatJTextFieldActionPerformed(evt);
+            }
+        });
         displayJPanel.add(addHabitatJTextField);
 
         controlJPanel.setLayout(new java.awt.GridLayout(1, 2, 3, 3));
@@ -288,6 +292,7 @@ public AddSpecies(Species species) {
 
         jLabel1.setText("Predators:");
 
+        addPredatorsJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         addPredatorsJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 addPredatorsJTextFieldFocusGained(evt);
@@ -302,9 +307,7 @@ public AddSpecies(Species species) {
             }
         });
 
-        jLabel2.setText("Predators:");
-
-        addTitleJLabel.setText("Add Player");
+        addTitleJLabel.setText("Add Species");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,8 +319,6 @@ public AddSpecies(Species species) {
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(addPredatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -340,8 +341,7 @@ public AddSpecies(Species species) {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(addPredatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(addPredatorsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -670,6 +670,10 @@ public AddSpecies(Species species) {
         addPredatorsJTextField.setBackground(pink);
     }//GEN-LAST:event_addPredatorsJTextFieldFocusLost
 
+    private void addHabitatJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHabitatJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addHabitatJTextFieldActionPerformed
+
     
   
                                           
@@ -693,7 +697,6 @@ public AddSpecies(Species species) {
     private javax.swing.JPanel displayJPanel;
     private javax.swing.JLabel firstJLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lastJLabel;
     private javax.swing.JButton quitJButton;
     // End of variables declaration//GEN-END:variables

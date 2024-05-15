@@ -33,8 +33,6 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="addPredatorsJTextField" min="-2" pref="165" max="-2" attributes="0"/>
@@ -67,7 +65,6 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="addPredatorsJTextField" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Component id="controlJPanel" min="-2" pref="52" max="-2" attributes="0"/>
@@ -197,6 +194,7 @@
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addHabitatJTextFieldFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addHabitatJTextFieldFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addHabitatJTextFieldActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -250,20 +248,18 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="addPredatorsJTextField">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+      </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPredatorsJTextFieldFocusGained"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="addPredatorsJTextFieldFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPredatorsJTextFieldActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Predators:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="addTitleJLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add Player"/>
+        <Property name="text" type="java.lang.String" value="Add Species"/>
       </Properties>
     </Component>
   </SubComponents>

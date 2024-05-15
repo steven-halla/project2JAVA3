@@ -364,6 +364,7 @@ private void setFormData(Species species) {
 
         jLabel1.setText("Predators:");
 
+        editPredatorsJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         editPredatorsJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 editPredatorsJTextFieldFocusGained(evt);

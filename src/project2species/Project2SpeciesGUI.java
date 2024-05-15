@@ -1588,34 +1588,44 @@ private Species findSpeciesByGenus(String genus) {
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void searchJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJTextFieldActionPerformed
-        // TODO add your handling code here:
-         String searchText = searchJTextField.getText().trim();
+
+        
+        
+           // Retrieve the search text from the text field
+    String searchText = searchJTextField.getText().trim();
+
+    // Check if the search text is empty
     if (searchText.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Please enter search criteria!", "No Search Criteria", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // SQL query to search the database including all fields
-    String query = "SELECT * FROM SpeciesTable WHERE name LIKE ? OR genus LIKE ? OR habitat LIKE ? OR predators LIKE ? OR diet LIKE ? OR CAST(population AS CHAR) LIKE ?";
+    // Validate that the search text contains only letters
+    if (!searchText.matches("[a-zA-Z]+")) {
+        JOptionPane.showMessageDialog(null, "Letters only please", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Define the SQL query to search for species by name only
+    String query = "SELECT * FROM SpeciesTable WHERE name LIKE ?";
 
     try {
+        // Establish the database connection
         Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
         PreparedStatement pstmt = con.prepareStatement(query);
 
-        // Setting the parameters for the prepared statement
+        // Set the parameter for the prepared statement
         String searchPattern = "%" + searchText + "%";
         pstmt.setString(1, searchPattern);
-        pstmt.setString(2, searchPattern);
-        pstmt.setString(3, searchPattern);
-        pstmt.setString(4, searchPattern);
-        pstmt.setString(5, searchPattern);
-        pstmt.setString(6, searchPattern);
 
+        // Execute the query
         ResultSet rs = pstmt.executeQuery();
 
         // Process the result set
         StringBuilder result = new StringBuilder("Search Results:\n");
         boolean hasResults = false;
+
+        // Check if there are any results
         if (rs.next()) {
             hasResults = true;
 
@@ -1646,17 +1656,20 @@ private Species findSpeciesByGenus(String genus) {
             }
         }
 
+        // Show a message if no results are found
         if (!hasResults) {
             JOptionPane.showMessageDialog(null, "No results found!", "No Results", JOptionPane.INFORMATION_MESSAGE);
         } else {
+            // Display the search results in a message dialog
             JOptionPane.showMessageDialog(null, result.toString(), "Search Results", JOptionPane.INFORMATION_MESSAGE);
         }
 
+        // Close the result set, prepared statement, and connection
         rs.close();
         pstmt.close();
         con.close();
-
     } catch (SQLException exp) {
+        // Show an error message if there is a SQL exception
         JOptionPane.showMessageDialog(null, "SQL error: " + exp.getMessage(), "SQL Error", JOptionPane.ERROR_MESSAGE);
         exp.printStackTrace();
     }
