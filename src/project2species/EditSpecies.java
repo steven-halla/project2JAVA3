@@ -342,6 +342,7 @@ private void setFormData(Species species) {
         editJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         editJButton.setMnemonic('A');
         editJButton.setText("Edit");
+        editJButton.setToolTipText("Edit the speices");
         editJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editJButtonActionPerformed(evt);
@@ -353,6 +354,7 @@ private void setFormData(Species species) {
         quitJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         quitJButton.setMnemonic('Q');
         quitJButton.setText("Quit");
+        quitJButton.setToolTipText("Close form and return to main GUI");
         quitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quitJButtonActionPerformed(evt);

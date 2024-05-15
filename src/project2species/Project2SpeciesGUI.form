@@ -97,23 +97,25 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="bottomButtonsJPanel" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="speciesListJjScrollPane" min="-2" pref="279" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Component id="imageMainJLabel" min="-2" pref="215" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" pref="413" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="237" max="-2" attributes="0"/>
                               <Component id="searchJTextField" max="32767" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="413" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="speciesListJjScrollPane" min="-2" pref="279" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -235,6 +237,9 @@
             <Property name="text" type="java.lang.String" value="Exit"/>
             <Property name="toolTipText" type="java.lang.String" value="Exit Application"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitJButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -244,7 +249,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="GenusJLabel" max="32767" attributes="0"/>
@@ -253,20 +258,20 @@
                               <Component id="DietJLabel" alignment="1" max="32767" attributes="0"/>
                               <Component id="HabitatJLabel" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="HabitatJTextField" max="32767" attributes="0"/>
-                              <Component id="DietJTextField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="PopulationJTextField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="GenusJTextField" max="32767" attributes="0"/>
-                              <Component id="NameOfSpeciesJTextField" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="PredatorsJLabel" pref="102" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="PredatorsJTextField" min="-2" pref="226" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="PredatorsJLabel" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       </Group>
+                  </Group>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="PredatorsJTextField" pref="221" max="32767" attributes="0"/>
+                      <Component id="HabitatJTextField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="DietJTextField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="PopulationJTextField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="GenusJTextField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="NameOfSpeciesJTextField" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -300,7 +305,7 @@
                       <Component id="HabitatJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="HabitatJLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="PredatorsJLabel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="PredatorsJTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -342,26 +347,41 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="GenusJTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GenusJTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="PopulationJTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PopulationJTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="DietJTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DietJTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="HabitatJTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HabitatJTextFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="PredatorsJTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PredatorsJTextFieldActionPerformed"/>
           </Events>

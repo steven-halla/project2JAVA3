@@ -278,6 +278,7 @@ public AddSpecies(Species species) {
         quitJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         quitJButton.setMnemonic('Q');
         quitJButton.setText("Quit");
+        quitJButton.setToolTipText("Close form and return to main GUI");
         quitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quitJButtonActionPerformed(evt);
