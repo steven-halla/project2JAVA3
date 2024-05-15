@@ -2199,10 +2199,13 @@ private void updateDatabaseTable(String tableName) {
 
    
     public static void main(String args[]) {
+           Splash mySplash = new Splash(5000);     
+                  mySplash.showSplash(); 
    
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Project2SpeciesGUI().setVisible(true);
+               
             }
         });
     }
