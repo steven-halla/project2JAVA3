@@ -25,6 +25,25 @@ import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Class: Project2SpeciesGUI
+ * Description: This class provides a graphical user interface (GUI) for managing
+ * endangered species data. It allows users to view, add, edit, and delete species
+ * information stored in a MySQL database. The GUI includes a list of species,
+ * search functionality, and detailed views of individual species attributes such
+ * as name, genus, population, diet, habitat, and predators.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
 public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConnection{
     
         ArrayList<String[]> speciesData = fetchSpeciesNamesWithPopulation();
@@ -38,6 +57,20 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
       //build constructor in this class
 
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor: Project2SpeciesGUI
+ * Description: Initializes a new Project2SpeciesGUI instance, sets up the GUI components,
+ * populates the species list, and establishes listeners for user interaction.
+ * This constructor also includes debug statements to confirm the loading of species data.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
  
     public Project2SpeciesGUI() {
@@ -372,6 +405,21 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: loadSpeciesFromDatabase
+ * Description: Connects to the database, retrieves species names and genera,
+ * and populates the animals list with the fetched data. This method also handles
+ * exceptions related to database connectivity and SQL queries.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void loadSpeciesFromDatabase() {
     Connection conn = null;
     Statement stmt = null;
@@ -419,7 +467,21 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
 }
 
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: fetchSpeciesNames
+ * Description: Retrieves species names from the SpeciesTable in the database and
+ * populates an ArrayList with these names. Handles SQL exceptions and displays error
+ * messages if any issues occur during the database interaction.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private ArrayList<String> fetchSpeciesNames() {
     ArrayList<String> names = new ArrayList<>();
     String query = "SELECT name FROM SpeciesTable";  
@@ -436,6 +498,20 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
     return names;
 }
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: updateSpeciesListJList
+ * Description: Updates the JList component with species names fetched from the database.
+ * This method uses the fetchSpeciesNames method to retrieve the species names and populates
+ * the JList with these names.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     public void updateSpeciesListJList() {
     DefaultListModel<String> model = new DefaultListModel<>();
@@ -446,6 +522,23 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     speciesListJList.setModel(model);
 }
     
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: fetchSpeciesSortedByNameAsc
+ * Description: Retrieves species names from the database, sorted in ascending order.
+ * This method executes an SQL query to fetch the names of species from the SpeciesTable,
+ * orders them by name in ascending order, and returns the data as an ArrayList of String arrays.
+ *
+ * @return ArrayList<String[]> - A list of species names sorted in ascending order.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
   private ArrayList<String[]> fetchSpeciesSortedByNameAsc() {
     ArrayList<String[]> speciesData = new ArrayList<>();
     String query = "SELECT name FROM SpeciesTable ORDER BY name ASC";  // Order by name in ascending order
@@ -465,6 +558,23 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     return speciesData;
 }
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: fetchSpeciesSortedByPopulation
+ * Description: Retrieves species names and their populations from the database, 
+ * sorted by population in descending order. This method executes an SQL query 
+ * to fetch the names and populations of species from the SpeciesTable, orders them 
+ * by population in descending order, and returns the data as an ArrayList of String arrays.
+ *
+ * @return ArrayList<String[]> - A list of species names and populations sorted in descending order.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
       private ArrayList<String[]> fetchSpeciesSortedByPopulation() {
@@ -487,6 +597,24 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     return speciesData;
 }
 
+      /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: updateSpeciesListJList
+ * Description: Updates the species list JList with the provided species data.
+ * This method takes an ArrayList of String arrays containing species names and their 
+ * populations, formats each entry to include the species name and population, and 
+ * sets the formatted data as the model for the speciesListJList.
+ *
+ * @param speciesData ArrayList<String[]> - A list of species names and populations.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void updateSpeciesListJList(ArrayList<String[]> speciesData) {
     DefaultListModel<String> model = new DefaultListModel<>();
     for (String[] data : speciesData) {
@@ -497,6 +625,24 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     speciesListJList.setModel(model);
 }
     
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: updateSpeciesListJListNameAsc
+ * Description: Updates the species list JList with the provided species data,
+ * sorted by species names in ascending order. This method takes an ArrayList of 
+ * String arrays containing species names, formats each entry to include only the 
+ * species name, and sets the formatted data as the model for the speciesListJList.
+ *
+ * @param speciesData ArrayList<String[]> - A list of species names sorted in ascending order.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void updateSpeciesListJListNameAsc(ArrayList<String[]> speciesData) {
     DefaultListModel<String> model = new DefaultListModel<>();
     for (String[] data : speciesData) {
@@ -506,7 +652,22 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     speciesListJList.setModel(model);
 }
 
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: createDB
+ * Description: Creates and initializes the SpeciesTable in the database. This method 
+ * connects to the database, checks if the SpeciesTable exists, drops it if it does, and 
+ * then creates a new SpeciesTable with columns for speciesID, name, genus, population, 
+ * diet, habitat, and predators. It then populates the table with data from the animals list.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
      private void createDB()
             
     {   
@@ -555,7 +716,23 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
      
      
-     
+     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: readFromTextFile
+ * Description: Reads species data from a specified text file, processes each line,
+ * and populates the animals list with Species objects. Each line of the text file
+ * is expected to contain comma-separated values representing the name, genus, 
+ * population, diet, habitat, and predators of a species. Handles file not found 
+ * and input/output exceptions, displaying appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
      private void readFromTextFile(String textFile)
 {
     try
@@ -597,6 +774,22 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     }
 }
      
+     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesNames
+ * Description: Retrieves species names from the SpeciesTable in the database
+ * and stores them in a map with the species name as the key and an empty string
+ * as the initial value for the genus. Handles SQL exceptions and displays
+ * appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 private Map<String, String> findSpeciesNames() {
     Map<String, String> speciesMap = new HashMap<>();
     String query = "SELECT name FROM SpeciesTable WHERE name IS NOT NULL AND name != ''";
@@ -616,6 +809,22 @@ private Map<String, String> findSpeciesNames() {
     }
     return speciesMap;
 }
+
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesGenera
+ * Description: Retrieves species names and their corresponding genera from the
+ * SpeciesTable in the database, storing them in a map where the species name is
+ * the key and the genus is the value. Handles SQL exceptions and displays
+ * appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 private Map<String, String> findSpeciesGenera() {
     Map<String, String> genusMap = new HashMap<>();
@@ -637,6 +846,21 @@ private Map<String, String> findSpeciesGenera() {
     }
     return genusMap;
 }
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesPopulations
+ * Description: Retrieves species names and their corresponding population sizes
+ * from the SpeciesTable in the database, storing them in a map where the species
+ * name is the key and the population size is the value. Handles SQL exceptions
+ * and displays appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 private Map<String, Integer> findSpeciesPopulations() {
     Map<String, Integer> populationMap = new HashMap<>();
@@ -658,6 +882,21 @@ private Map<String, Integer> findSpeciesPopulations() {
     }
     return populationMap;
 }
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesDiets
+ * Description: Retrieves species names and their corresponding diets from the
+ * SpeciesTable in the database, storing them in a map where the species name is
+ * the key and the diet is the value. Handles SQL exceptions and displays
+ * appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 private Map<String, String> findSpeciesDiets() {
     Map<String, String> dietMap = new HashMap<>();
@@ -680,6 +919,22 @@ private Map<String, String> findSpeciesDiets() {
     return dietMap;
 }
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesHabitats
+ * Description: Retrieves species names and their corresponding habitats from the
+ * SpeciesTable in the database, storing them in a map where the species name is
+ * the key and the habitat is the value. Handles SQL exceptions and displays
+ * appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 private Map<String, String> findSpeciesHabitats() {
     Map<String, String> habitatMap = new HashMap<>();
     String query = "SELECT name, habitat FROM SpeciesTable WHERE name IS NOT NULL AND habitat IS NOT NULL AND name != '' AND habitat != ''";
@@ -700,6 +955,21 @@ private Map<String, String> findSpeciesHabitats() {
     }
     return habitatMap;
 }
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesPredators
+ * Description: Retrieves species names and their corresponding predators from the
+ * SpeciesTable in the database, storing them in a map where the species name is
+ * the key and the predators are the value. Handles SQL exceptions and displays
+ * appropriate error messages.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 private Map<String, String> findSpeciesPredators() {
     Map<String, String> predatorMap = new HashMap<>();
@@ -722,6 +992,22 @@ private Map<String, String> findSpeciesPredators() {
     return predatorMap;
 }
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: speciesSelector
+ * Description: Sets up a list selection listener for the species JList. When a species
+ * is selected from the list, this method retrieves the species' details (name, genus,
+ * population, diet, habitat, and predators) from various maps and displays them in
+ * the corresponding text fields. Handles cases where no species is selected or genus
+ * is not found.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 private void speciesSelector() {
     Map<String, String> speciesNameMap = findSpeciesNames();
@@ -780,6 +1066,23 @@ private void speciesSelector() {
 
 
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: findSpeciesByGenus
+ * Description: Searches the list of Species for a species with the given genus.
+ * If a species with the specified genus is found, it returns that Species object.
+ * If no match is found, it returns null.
+ *
+ * @param genus The genus to search for.
+ * @return The Species object with the matching genus, or null if no match is found.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
 private Species findSpeciesByGenus(String genus) {
@@ -799,6 +1102,22 @@ private Species findSpeciesByGenus(String genus) {
 
      
     
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: GenusJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the GenusJTextField. Currently, this method outputs the text entered in the
+ * GenusJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the GenusJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     
     private void GenusJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenusJTextFieldActionPerformed
@@ -806,29 +1125,109 @@ private Species findSpeciesByGenus(String genus) {
                   System.out.println("Action performed on NameOfSpeciesJTextField: " + GenusJTextField.getText());
 
     }//GEN-LAST:event_GenusJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: DietJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the DietJTextField. This method outputs the text entered in the
+ * DietJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the DietJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void DietJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DietJTextFieldActionPerformed
         // TODO add your handling code here:
                           System.out.println("Action performed on NameOfSpeciesJTextField: " + DietJTextField.getText());
 
     }//GEN-LAST:event_DietJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: HabitatJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the HabitatJTextField. This method outputs the text entered in the
+ * HabitatJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the HabitatJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void HabitatJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HabitatJTextFieldActionPerformed
         // TODO add your handling code here:
                           System.out.println("Action performed on NameOfSpeciesJTextField: " + HabitatJTextField.getText());
 
     }//GEN-LAST:event_HabitatJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: PredatorsJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the PredatorsJTextField. This method outputs the text entered in the
+ * PredatorsJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the PredatorsJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void PredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PredatorsJTextFieldActionPerformed
         // TODO add your handling code here:
                           System.out.println("Action performed on NameOfSpeciesJTextField: " + PredatorsJTextField.getText());
 
     }//GEN-LAST:event_PredatorsJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: NameOfSpeciesJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the NameOfSpeciesJTextField. This method outputs the text entered in the
+ * NameOfSpeciesJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the NameOfSpeciesJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void NameOfSpeciesJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameOfSpeciesJTextFieldActionPerformed
           System.out.println("Action performed on NameOfSpeciesJTextField: " + NameOfSpeciesJTextField.getText());
 
     }//GEN-LAST:event_NameOfSpeciesJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: PopulationJTextFieldActionPerformed
+ * Description: Handles the action event triggered when the user interacts with
+ * the PopulationJTextField. This method outputs the text entered in the
+ * PopulationJTextField to the console for debugging purposes.
+ *
+ * @param evt The ActionEvent triggered by the user's interaction with the PopulationJTextField.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void PopulationJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PopulationJTextFieldActionPerformed
         // TODO add your handling code here:
@@ -836,7 +1235,24 @@ private Species findSpeciesByGenus(String genus) {
 
     }//GEN-LAST:event_PopulationJTextFieldActionPerformed
    
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: display
+ * Description: Updates the text fields in the GUI to display the details of
+ * the given Species object. This method sets the text of the NameOfSpeciesJTextField,
+ * GenusJTextField, PopulationJTextField, DietJTextField, HabitatJTextField, and
+ * PredatorsJTextField to the corresponding values of the provided Species object.
+ *
+ * @param mySpecies The Species object whose details are to be displayed.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void display(Species mySpecies)
     {
     NameOfSpeciesJTextField.setText(mySpecies.getName());
@@ -862,7 +1278,24 @@ private Species findSpeciesByGenus(String genus) {
         }
         return found;
     }
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: addJButtonActionPerformed
+ * Description: Handles the action event for the Add button. This method opens
+ * the AddSpecies dialog, waits for user input, and retrieves the new species
+ * data entered by the user. It includes debug statements to trace the dialog
+ * creation and data retrieval process.
+ *
+ * @param evt The action event triggered by clicking the Add button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJButtonActionPerformed
       System.out.println("Opening AddSpecies dialog...");
@@ -893,6 +1326,23 @@ private Species findSpeciesByGenus(String genus) {
     }
          
     }//GEN-LAST:event_addJButtonActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: editJButtonActionPerformed
+ * Description: Handles the action event for the Edit button. This method checks
+ * if a species is selected, retrieves the selected species details, opens the 
+ * EditSpecies dialog with the details, and updates the display with the edited
+ * species details after the dialog is closed.
+ *
+ * @param evt The action event triggered by clicking the Edit button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void editJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editJButtonActionPerformed
         // TODO add your handling code here:
@@ -927,32 +1377,25 @@ private Species findSpeciesByGenus(String genus) {
     DietJTextField.setText(updatedSpecies.getDiet());
     HabitatJTextField.setText(updatedSpecies.getHabitat());
     PredatorsJTextField.setText(updatedSpecies.getPredators());
-           // Get selected species details
-//    String selectedSpeciesName = NameOfSpeciesJTextField.getText();
-//    String selectedSpeciesGenus = GenusJTextField.getText();
-//    int selectedSpeciesPopulation = Integer.parseInt(PopulationJTextField.getText());
-//    String selectedSpeciesDiet = DietJTextField.getText();
-//    String selectedSpeciesHabitat = HabitatJTextField.getText();
-//    String selectedSpeciesPredator = PredatorsJTextField.getText();
-//
-//    // Create a Species object with the selected details
-//    Species selectedSpecies = new Species(selectedSpeciesName, selectedSpeciesGenus, selectedSpeciesPopulation, selectedSpeciesDiet, selectedSpeciesHabitat, selectedSpeciesPredator);
-//
-//    // Open the EditSpecies form
-//    EditSpecies myEditForm = new EditSpecies(this, true, selectedSpecies);
-//    myEditForm.setVisible(true);
-//
-//    // After the dialog is closed, get the updated species
-//    Species updatedSpecies = myEditForm.getSpecies();
-//
-//    // Update the display with the edited species details
-//    NameOfSpeciesJTextField.setText(updatedSpecies.getName());
-//    GenusJTextField.setText(updatedSpecies.getGenus());
-//    PopulationJTextField.setText(String.valueOf(updatedSpecies.getPopulation()));
-//    DietJTextField.setText(updatedSpecies.getDiet());
-//    HabitatJTextField.setText(updatedSpecies.getHabitat());
-//    PredatorsJTextField.setText(updatedSpecies.getPredators());
+
     }//GEN-LAST:event_editJButtonActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: deleteJButtonActionPerformed
+ * Description: Handles the action event for the Delete button. This method checks
+ * if a species is selected from the list, confirms the deletion from the user,
+ * deletes the selected species from the database, and updates the species list.
+ * It also handles SQL exceptions and updates the GUI components accordingly.
+ *
+ * @param evt The action event triggered by clicking the Delete button.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void deleteJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteJButtonActionPerformed
         // TODO add your handling code here:
@@ -1009,6 +1452,24 @@ private Species findSpeciesByGenus(String genus) {
         }
     }
     }//GEN-LAST:event_deleteJButtonActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: detailsJMenuItemActionPerformed
+ * Description: Handles the action event for the Details menu item. This method retrieves
+ * and displays detailed information about the selected species from the database. It fetches
+ * the species' name, genus, population, diet, habitat, and predators, and presents this
+ * information in a message dialog. If no species is selected or found, an appropriate message
+ * is displayed.
+ *
+ * @param evt The action event triggered by selecting the Details menu item.
+ * 
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void detailsJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailsJMenuItemActionPerformed
         // TODO add your handling code here:
@@ -1065,6 +1526,23 @@ private Species findSpeciesByGenus(String genus) {
         exp.printStackTrace();
     }
     }//GEN-LAST:event_detailsJMenuItemActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: searchJTextFieldActionPerformed
+ * Description: Handles the action event for the search JTextField. This method performs
+ * a database search based on the input text, querying multiple fields in the SpeciesTable.
+ * The search results, if any, are displayed in the corresponding JTextFields and a message dialog.
+ * If no results are found or the input is empty, appropriate messages are shown.
+ *
+ * @param evt The action event triggered by the search JTextField.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void searchJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchJTextFieldActionPerformed
         // TODO add your handling code here:
@@ -1141,7 +1619,23 @@ private Species findSpeciesByGenus(String genus) {
     }
     }//GEN-LAST:event_searchJTextFieldActionPerformed
 
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: sortByNameAscMenuItemActionPerformed
+ * Description: Handles the action event for sorting species by name in ascending order.
+ * This method fetches species data sorted by name from the database and updates the species
+ * list JList to reflect the sorted order.
+ *
+ * @param evt The action event triggered by selecting the sort by name ascending menu item.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     
     private void sortByNameAscMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByNameAscMenuItemActionPerformed
         // TODO add your handling code here:
@@ -1149,6 +1643,22 @@ private Species findSpeciesByGenus(String genus) {
     updateSpeciesListJListNameAsc(speciesNames);
 
     }//GEN-LAST:event_sortByNameAscMenuItemActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: sortByPopulationJMenuItemActionPerformed
+ * Description: Handles the action event for sorting species by population in descending order.
+ * This method fetches species data sorted by population from the database and updates the species
+ * list JList to reflect the sorted order.
+ *
+ * @param evt The action event triggered by selecting the sort by population menu item.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void sortByPopulationJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByPopulationJMenuItemActionPerformed
         // TODO add your handling code here:
@@ -1157,6 +1667,22 @@ private Species findSpeciesByGenus(String genus) {
     // Update the JList with the sorted data
     updateSpeciesListJList(speciesData);
     }//GEN-LAST:event_sortByPopulationJMenuItemActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: newJMenuItemActionPerformed
+ * Description: Handles the action event for creating a new item from the menu.
+ * This method presents a dialog with a JComboBox for the user to select a programming language,
+ * and displays a message based on the selected language.
+ *
+ * @param evt The action event triggered by selecting the new menu item.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void newJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newJMenuItemActionPerformed
         // TODO add your handling code here:
@@ -1198,6 +1724,22 @@ private Species findSpeciesByGenus(String genus) {
     }
         
     }//GEN-LAST:event_newJMenuItemActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: fetchSpeciesNamesWithPopulation
+ * Description: Retrieves the names and population of species from the database.
+ * This method executes an SQL query to fetch species names and their populations,
+ * and returns the data in an ArrayList of String arrays.
+ *
+ * @return ArrayList<String[]> A list containing species names and populations.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private ArrayList<String[]> fetchSpeciesNamesWithPopulation() {
     ArrayList<String[]> speciesData = new ArrayList<>();
@@ -1218,6 +1760,22 @@ private Species findSpeciesByGenus(String genus) {
     }
     return speciesData;
 }
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: main
+ * Description: The entry point for the Project2SpeciesGUI application. This method 
+ * initializes the GUI and makes it visible on the event dispatch thread using 
+ * java.awt.EventQueue.invokeLater.
+ *
+ * @param args The command line arguments.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
    
     public static void main(String args[]) {
