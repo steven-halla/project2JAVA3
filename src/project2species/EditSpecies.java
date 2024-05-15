@@ -1,16 +1,11 @@
 package project2species;
-import static com.mysql.cj.conf.PropertyKey.PASSWORD;
-
 
 import java.awt.Color;
-import java.sql.Connection; // Correct import for Connection
+import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
-import static project2species.MySQLConnection.DB_URL;
-import static project2species.MySQLConnection.USER;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.ResultSet;
 
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -31,11 +26,10 @@ import java.sql.ResultSet;
 
 public class EditSpecies extends javax.swing.JDialog
 {
-    // class instance variables
-   private Species mySpecies = null;
-   private String originalName;
+    private Species mySpecies = null;
+    private String originalName;
 
-       private Project2SpeciesGUI mainGui;
+    private Project2SpeciesGUI mainGui;
 
     private String name;
     private String genus;
@@ -46,7 +40,6 @@ public class EditSpecies extends javax.swing.JDialog
     private String diet;
     private final Color white = Color.WHITE;
     private final Color pink = Color.PINK;
-     // Background color for bad input textfield
     
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Constructor  EditSpecies()
@@ -61,17 +54,8 @@ public class EditSpecies extends javax.swing.JDialog
     public EditSpecies()
     {
         initComponents();
-        // Center the form
-
         this.setLocationRelativeTo(null);        
-        // Set the default button
-//        this.getRootPane().setDefaultButton(addJButton);   
-        // Center the form
-//        addJButton.setText("Edit");
-        // Set the modal to true
-        setModal(true);     
-        
-        
+        setModal(true);          
     }
     
     
@@ -133,7 +117,7 @@ public class EditSpecies extends javax.swing.JDialog
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 public EditSpecies(Species species) {
-    this(); // Call default constructor to build GUI
+    this(); 
     mySpecies = species;
     editNameJTextField.setText(species.getName());
     editGenusJTextField.setText(species.getGenus());
@@ -163,7 +147,7 @@ public EditSpecies(java.awt.Frame parent, boolean modal, Species species) {
     this.setLocationRelativeTo(null);        
     this.mySpecies = species;
     setFormData(species);
-            initializeEditForm(species); // Call this method to initialize the form
+            initializeEditForm(species); 
 
 }
 
@@ -206,9 +190,7 @@ private void setFormData(Species species) {
         super(parent, modal);
         initComponents();
 
-        // Center the form
         this.setLocationRelativeTo(null);        
-        // Set the default button
         this.getRootPane().setDefaultButton(editJButton);                        
     }
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -474,11 +456,9 @@ private void setFormData(Species species) {
     String habitat = editHabitatJTextField.getText().trim();
     String predators = editPredatorsJTextField.getText().trim();
 
-    // Validation flags
     boolean isValid = true;
     StringBuilder validationMessage = new StringBuilder("Please fix the following errors:\n");
 
-    // Validate that population is a number
     int population = 0;
     try {
         population = Integer.parseInt(populationText);
@@ -487,7 +467,6 @@ private void setFormData(Species species) {
         validationMessage.append("- Population must be a number.\n");
     }
 
-  // Validate that name, genus, diet, habitat, and predators contain only letters and spaces
 if (!newName.matches("[a-zA-Z ]+")) {
     isValid = false;
     validationMessage.append("- Name must contain only letters and spaces.\n");
@@ -509,7 +488,6 @@ if (!predators.matches("[a-zA-Z ]+")) {
     validationMessage.append("- Predators must contain only letters and spaces.\n");
 }
 
-    // If validations fail, show the error messages and return
     if (!isValid) {
         JOptionPane.showMessageDialog(this, validationMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
@@ -532,18 +510,24 @@ if (!predators.matches("[a-zA-Z ]+")) {
 
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows > 0) {
-            JOptionPane.showMessageDialog(this, "Species updated successfully!", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Species "
+                    + "updated successfully!", "Update Successful",
+                    JOptionPane.INFORMATION_MESSAGE);
             if (mainGui != null) {
                 mainGui.updateSpeciesListJList();
             } else {
-                System.err.println("Error: mainGui is null. Unable to refresh the species list.");
+                System.err.println("Error: mainGui is null. Unable to refresh "
+                        + "the species list.");
             }
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "No changes were made. Please check your input values.", "Update Failed", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No changes "
+                    + "were made. Please check your input values.", "Update "
+                            + "Failed", JOptionPane.ERROR_MESSAGE);
         }
     } catch (SQLException exp) {
-        JOptionPane.showMessageDialog(this, "Database error: " + exp.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Database error: " 
+                + exp.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         exp.printStackTrace();
     } finally {
         try {
@@ -718,9 +702,7 @@ if (!predators.matches("[a-zA-Z ]+")) {
 
 
     private void editPredatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editPredatorsJTextFieldFocusGained
-        // TODO add your handling code here:
             editPredatorsJTextField.selectAll();
-
     }//GEN-LAST:event_editPredatorsJTextFieldFocusGained
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method       editPredatorsJTextFieldFocusLost()
@@ -735,7 +717,6 @@ if (!predators.matches("[a-zA-Z ]+")) {
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void editPredatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editPredatorsJTextFieldFocusLost
-        // TODO add your handling code here:
             String input = editPredatorsJTextField.getText();
     if (Validation.isValidName(input))
         editPredatorsJTextField.setBackground(white);

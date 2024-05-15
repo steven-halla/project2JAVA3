@@ -29,21 +29,16 @@ import java.sql.SQLException;
 
 public class AddSpecies extends javax.swing.JDialog
 {
-    // class instance variables
    private Species mySpecies = null;
     private String name;
     private String genus;
     private int population;
     private String habitat;
     private String predators;
-    
-
     private String diet;
     private Project2SpeciesGUI mainGui;
-
-    private final Color white = Color.WHITE; // Default background color for input textfield
+    private final Color white = Color.WHITE; 
     private final Color pink = Color.PINK;
-     // Background color for bad input textfield
     
  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Constructor  AddSpecies()--default constructor
@@ -58,13 +53,8 @@ public class AddSpecies extends javax.swing.JDialog
     public AddSpecies()
     {
         initComponents();
-        // Center the form
         this.setLocationRelativeTo(null);        
-        // Set the default button
-//        this.getRootPane().setDefaultButton(addJButton);   
-        // Center the form
-//        addJButton.setText("Edit");
-        // Set the modal to true
+
         setModal(true);        
     }
     
@@ -80,14 +70,14 @@ public class AddSpecies extends javax.swing.JDialog
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 public AddSpecies(Species species) {
-    this(); // Call default constructor to build GUI
+    this(); 
     mySpecies = species;
     addNameJTextField.setText(species.getName());
     addGenusJTextField.setText(species.getGenus());
     addPopulationJTextField.setText(String.valueOf(species.getPopulation()));
     addDietJTextField.setText(species.getDiet());
     addHabitatJTextField.setText(species.getHabitat());
-    addPredatorsJTextField.setText(species.getPredators()); // Adding predators field
+    addPredatorsJTextField.setText(species.getPredators()); 
 
 }
 
@@ -109,9 +99,7 @@ public AddSpecies(Species species) {
         super(parent, modal);
         initComponents();
 
-        // Center the form
         this.setLocationRelativeTo(null);        
-        // Set the default button
         this.getRootPane().setDefaultButton(addJButton);                        
     }
     
@@ -396,7 +384,6 @@ public AddSpecies(Species species) {
     Connection conn = null;
     PreparedStatement pstmt = null;
 
-    // Assuming these variables are retrieved from form inputs or another source
     String name = addNameJTextField.getText().trim();
     String genus = addGenusJTextField.getText().trim();
     String populationText = addPopulationJTextField.getText().trim();
@@ -404,11 +391,9 @@ public AddSpecies(Species species) {
     String habitat = addHabitatJTextField.getText().trim();
     String predators = addPredatorsJTextField.getText().trim();
 
-    // Validation flags
     boolean isValid = true;
     StringBuilder validationMessage = new StringBuilder("Please fix the following errors:\n");
 
-    // Validate that population is a number
     int population = 0;
     try {
         population = Integer.parseInt(populationText);
@@ -417,7 +402,6 @@ public AddSpecies(Species species) {
         validationMessage.append("- Population must be a number.\n");
     }
 
-    // Validate that name, genus, diet, habitat, and predators contain only letters
 if (!name.matches("[a-zA-Z ]+")) {
     isValid = false;
     validationMessage.append("- Name must contain only letters and spaces.\n");
@@ -440,14 +424,13 @@ if (!predators.matches("[a-zA-Z ]+")) {
 }
 
 
-    // If validations fail, show the error messages and return
     if (!isValid) {
-        JOptionPane.showMessageDialog(this, validationMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, validationMessage.
+                toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     try {
-        // Debug print statements to verify values
         System.out.println("Name: " + name);
         System.out.println("Genus: " + genus);
         System.out.println("Population: " + population);
@@ -455,10 +438,8 @@ if (!predators.matches("[a-zA-Z ]+")) {
         System.out.println("Habitat: " + habitat);
         System.out.println("Predators: " + predators);
 
-        // Initialize database connection
         conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
 
-        // Prepare SQL statement
         String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, name);
@@ -468,7 +449,6 @@ if (!predators.matches("[a-zA-Z ]+")) {
         pstmt.setString(5, habitat);
         pstmt.setString(6, predators);
 
-        // Execute update
         int affectedRows = pstmt.executeUpdate();
         if (affectedRows > 0) {
             message = "Species added successfully!";
@@ -476,7 +456,6 @@ if (!predators.matches("[a-zA-Z ]+")) {
 
         }
 
-        // Close form if successful
         this.dispose();
     } catch (SQLException exp) {
         JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
@@ -489,12 +468,6 @@ if (!predators.matches("[a-zA-Z ]+")) {
             exp.printStackTrace();
         }
     }
-
-        
-        
-
-     
-     
     }//GEN-LAST:event_addJButtonActionPerformed
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -636,14 +609,12 @@ if (!predators.matches("[a-zA-Z ]+")) {
  * @param       evt java.awt.event.ActionEvent
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     private void addPredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldActionPerformed
-        // TODO add your handling code here:
         String input = addPredatorsJTextField.getText();
     if (Validation.isValidName(input)) {
         addPredatorsJTextField.setBackground(white);
     } else {
         addPredatorsJTextField.setBackground(pink);
     }
-
     }//GEN-LAST:event_addPredatorsJTextFieldActionPerformed
 
     
@@ -657,9 +628,7 @@ if (!predators.matches("[a-zA-Z ]+")) {
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void addPredatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusGained
-        // TODO add your handling code here:
             addPredatorsJTextField.selectAll();
-
     }//GEN-LAST:event_addPredatorsJTextFieldFocusGained
 
     
@@ -674,14 +643,20 @@ if (!predators.matches("[a-zA-Z ]+")) {
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void addPredatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_addPredatorsJTextFieldFocusLost
-        // TODO add your handling code here:
             String input = addPredatorsJTextField.getText();
     if (Validation.isValidName(input))
         addPredatorsJTextField.setBackground(white);
     else
         addPredatorsJTextField.setBackground(pink);
     }//GEN-LAST:event_addPredatorsJTextFieldFocusLost
-
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method:      addHabitatJTextFieldActionPerformed()
+ * Description: this does nothing no idea how to delete
+ * Date:        4/5/2021
+ * History Log: 8/24/2016, 4/3/2020
+ * @author      Steven Halla
+ * @param       evt java.awt.event.FocusEvent
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     private void addHabitatJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHabitatJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addHabitatJTextFieldActionPerformed

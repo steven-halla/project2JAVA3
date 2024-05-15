@@ -35,7 +35,6 @@ import javax.swing.JOptionPane;
 public class CreateAddressBookDB implements MySQLConnection {
     
     private static final String SPECIES_TEXT_FILE = "src/project2species/SpeciesList.txt";
-    
     private static final ArrayList<Species> animals = new ArrayList<Species>();
     private Species mySpecies = new Species();
 
@@ -65,14 +64,12 @@ public class CreateAddressBookDB implements MySQLConnection {
     DatabaseMetaData dbm = con.getMetaData();
     ResultSet table;
     
-    // Check if the "SpeciesTable" already exists and drop it if it does
     table = dbm.getTables(null, null, "SpeciesTable", null);
     if(table.next())
     {
         stmt.executeUpdate("DROP TABLE SpeciesTable");
     }
 
-    // Create a new "SpeciesTable"
     stmt.executeUpdate("CREATE TABLE SpeciesTable (speciesID"
             + " SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, name"
             + " VARCHAR(20), genus VARCHAR(20), population INTEGER,"
@@ -80,10 +77,8 @@ public class CreateAddressBookDB implements MySQLConnection {
             + " VARCHAR(50), predators VARCHAR(50),"
             + " PRIMARY KEY (speciesID))");
     
-    // Assuming 'speciesList' is a List<Species> that has been defined elsewhere
     for(int i = 0; i < animals.size(); i++)
     {
-        // Insert data into the table
         stmt.executeUpdate
                 (
                 "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES("
@@ -93,8 +88,7 @@ public class CreateAddressBookDB implements MySQLConnection {
                 + "'" + animals.get(i).getDiet() + "'"  + ","
                 + "'" + animals.get(i).getHabitat() + "'"  + ","
                 + "'" + animals.get(i).getPredators() + "')"
-                );                       
-                                                         
+                );                                                                   
     }
     stmt.close();
 }
@@ -146,18 +140,17 @@ catch(SQLException exp)
 catch(FileNotFoundException fnfexp)
 {
     fnfexp.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Input error -- File not found.",
+    JOptionPane.showMessageDialog(null, "Input error -- "
+            + "File not found.",
             "File Not Found Error!", JOptionPane.ERROR_MESSAGE);
 }
 catch(IOException | NumberFormatException exp)
 {
-    // Consider whether to print stack trace or not depending on the requirement
-    // exp.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Input error -- File could not be read or data format is incorrect.",
+ 
+    JOptionPane.showMessageDialog(null, "Input error -- "
+            + "File could not be read or data format is incorrect.",
             "File Read Error!", JOptionPane.ERROR_MESSAGE);
 }
 
-    }    
-    
-    
+    }       
 }

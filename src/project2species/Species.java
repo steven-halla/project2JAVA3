@@ -3,10 +3,14 @@ package project2species;
 
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class: Species
- * Description: Represents a species, capturing essential biological information such as name, genus, population,
- * diet, habitat, and known predators. This class implements the `Comparable` interface to enable sorting
- * and comparison based on specified criteria, typically used for organizing species by name, genus, or any other
- * characteristic deemed relevant. This class is designed to provide structured access to species data within
+ * Description: Represents a species, capturing essential biological 
+ * information such as name, genus, population,
+ * diet, habitat, and known predators. This class implements the 
+ * `Comparable` interface to enable sorting
+ * and comparison based on specified criteria, typically used for 
+ * organizing species by name, genus, or any other
+ * characteristic deemed relevant. This class is designed to 
+ * provide structured access to species data within
  * ecological or biological studies and applications.
  *
  * Attributes:
@@ -34,9 +38,12 @@ public class Species implements Comparable<Species> {
     private String predators;
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Constructor: Species
- * Description: Initializes a new instance of the Species class with default values for all fields. This constructor sets
- * the name, genus, population, diet, habitat, and predators to their initial states, typically empty strings or zero.
- * It is useful when creating a Species object before all specific details are known or when initializing collections of
+ * Description: Initializes a new instance of the Species class with default 
+ * values for all fields. This constructor sets
+ * the name, genus, population, diet, habitat, and predators to their initial
+ * states, typically empty strings or zero.
+ * It is useful when creating a Species object before all specific details are
+ * known or when initializing collections of
  * Species objects.
  *
  * Project      QuizSpecies Quiz
@@ -57,9 +64,12 @@ public class Species implements Comparable<Species> {
     }
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Constructor: Species
- * Description: Initializes a new instance of the Species class with specified values for its properties. This constructor
- * sets the species' name, genus, population count, diet, natural habitat, and known predators. It provides a means to create
- * a fully defined Species object at the time of instantiation, facilitating the immediate use of the object with complete data.
+ * Description: Initializes a new instance of the Species class with specified 
+ * values for its properties. This constructor
+ * sets the species' name, genus, population count, diet, natural habitat,
+ * and known predators. It provides a means to create
+ * a fully defined Species object at the time of instantiation, 
+ * facilitating the immediate use of the object with complete data.
  *
  * Parameters:
  *  name - The common name of the species.
@@ -77,7 +87,8 @@ public class Species implements Comparable<Species> {
  * History Log  4/4/2016, 11/21/2017
  * Author       <i>Steven Halla</i>
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-    public Species(String name, String genus, int population, String diet, String habitat, String predators) {
+    public Species(String name, String genus, int population, String diet, 
+            String habitat, String predators) {
         this.name = name;
         this.genus = genus;
         this.population = population;
@@ -87,9 +98,12 @@ public class Species implements Comparable<Species> {
     }
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Constructor: Species
- * Description: Initializes a new instance of the Species class using another Species object as a source. This copy constructor
- * copies all properties from the provided `other` Species object, ensuring the new instance replicates the same attributes as
- * the source. This is particularly useful for creating a new, separate Species object when modifications are needed without
+ * Description: Initializes a new instance of the Species class using another 
+ * Species object as a source. This copy constructor
+ * copies all properties from the provided `other` Species object, 
+ * ensuring the new instance replicates the same attributes as
+ * the source. This is particularly useful for creating a new, 
+ * separate Species object when modifications are needed without
  * altering the original object.
  *
  * Parameters:
@@ -285,7 +299,8 @@ public class Species implements Comparable<Species> {
  */
     @Override
     public String toString() {
-        return name + "," + genus + "," + population + "," + diet + "," + habitat + "," + predators;
+        return name + "," + genus + "," + population + "," + diet + "," 
+                + habitat + "," + predators;
     }
 /**
  * Method: equals
@@ -308,14 +323,16 @@ public class Species implements Comparable<Species> {
     }
 /**
  * Method: hashCode
- * Description: Returns a hash code value for the object. This method is supported for the benefit of hash tables
+ * Description: Returns a hash code value for the object. 
+ * This method is supported for the benefit of hash tables
  * such as those provided by HashMap.
  *
  * @return int A hash code value for this object.
  */
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(name, genus, population, diet, habitat, predators);
+        return java.util.Objects.hash(name, genus, 
+                population, diet, habitat, predators);
     }
 /**
  * Method: compareTo

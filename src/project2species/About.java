@@ -29,7 +29,6 @@ public class About extends javax.swing.JDialog
     {
         super(parent, modal);
         initComponents();
-        //set closeJButton as default
         this.getRootPane().setDefaultButton(closeJButton); 
         this.setLocationRelativeTo(null);       //center form
     }
