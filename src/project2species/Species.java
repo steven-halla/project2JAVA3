@@ -4,7 +4,7 @@ package project2species;
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Class: Species
  * Description: Represents a species, capturing essential biological information such as name, genus, population,
- * diet, habitat, and known predators. This class implements the `Comparable<Species>` interface to enable sorting
+ * diet, habitat, and known predators. This class implements the `Comparable` interface to enable sorting
  * and comparison based on specified criteria, typically used for organizing species by name, genus, or any other
  * characteristic deemed relevant. This class is designed to provide structured access to species data within
  * ecological or biological studies and applications.
@@ -18,7 +18,7 @@ package project2species;
  *  predators - Predators known to commonly prey on the species.
  *
  * Project      QuizSpecies Quiz
- * Platform     jdk 1.8.0_241; NetBeans IDE 11.3; mac sonoma 14
+ * Platform     jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
  * Course       CS 141
  * Hours        8 hours and 45 minutes
  * Date         5/17/2024
@@ -112,7 +112,27 @@ public class Species implements Comparable<Species> {
         this.predators = other.predators;
     }
     
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor: Species
+ * Description: Initializes a new instance of the Species class with specified 
+ *              values for its name and genus, while setting other fields to 
+ *              default values. This constructor is useful when only the name 
+ *              and genus of the species are known initially, and other 
+ *              attributes will be provided later.
+ *
+ * Parameters:
+ *  name - The common name of the species.
+ *  genus - The biological genus to which the species belongs.
+ *
+ * Project      QuizSpecies Quiz
+ * Platform     jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course       CS 141
+ * Hours        8 hours and 45 minutes
+ * Date         5/17/2024
+ * History Log  4/4/2016, 11/21/2017
+ * Author       <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     
     public Species(String name, String genus) {
     this.name = name;

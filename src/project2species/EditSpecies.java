@@ -13,17 +13,22 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 
 
-
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Class        AddPerson.java
- * Description  A class used to both add and edit a person into the DB.
+ * Class        EditSpecies.java
+ * Description  A class used to edit the details of a species in the database.
+ *              It provides a graphical user interface (GUI) for modifying 
+ *              species information such as name, genus, population, diet, 
+ *              habitat, and predators. 
+ * Platform     jdk 1.8.0_241; NetBeans IDE 11.3; PC Windows 10
  * Course       CS 143
  * Hourse       1 hours and 12 minutes
  * Date         5/1/2021
-  History Log   7/18/2018, 5/7/2020, 4/5/2021
- * @author	<i>Niko Culevski</i>
- * @version 	%1% %2%
+ * History Log  7/18/2018, 5/7/2020, 4/5/2021
+ * @author      <i>Steven Halla</i>
+ * @version     %1% %2%
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+
 public class EditSpecies extends javax.swing.JDialog
 {
     // class instance variables
@@ -43,14 +48,16 @@ public class EditSpecies extends javax.swing.JDialog
     private final Color pink = Color.PINK;
      // Background color for bad input textfield
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--default constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Add Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/ 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies()
+ * Description  Creates an instance of the EditSpecies GUI form, initializes 
+ *              its components, centers the form on the screen, and sets the 
+ *              modal to true.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public EditSpecies()
     {
         initComponents();
@@ -67,6 +74,21 @@ public class EditSpecies extends javax.swing.JDialog
         
     }
     
+    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies(Project2SpeciesGUI mainGui, boolean modal, Species species)
+ * Description  Creates an instance of the EditSpecies GUI form with the 
+ *              specified parent GUI, modal setting, and species. Initializes 
+ *              the form components and populates the form fields with the 
+ *              species data.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       mainGui Project2SpeciesGUI - the parent GUI
+ * @param       modal boolean - specifies whether the dialog is modal
+ * @param       species Species - the species data to be edited
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
   public EditSpecies(Project2SpeciesGUI mainGui, boolean modal, Species species) {
     super(mainGui, modal);
     this.mainGui = mainGui;
@@ -74,7 +96,19 @@ public class EditSpecies extends javax.swing.JDialog
     initComponents();
     initializeEditForm(species);
 }
-    
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies(Project2SpeciesGUI mainGui, boolean modal, Species species)
+ * Description  Creates an instance of the EditSpecies GUI form with the 
+ *              specified parent GUI, modal setting, and species. Initializes 
+ *              the form components and populates the form fields with the 
+ *              species data.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+
+ * @param       species Species - the species data to be edited
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     
     public void initializeEditForm(Species species) {
                 System.out.println("Initializing Edit Form with Original Name: " + originalName); // Print statement for debugging
@@ -88,15 +122,16 @@ public class EditSpecies extends javax.swing.JDialog
     editPredatorsJTextField.setText(species.getPredators());
 }
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--overloaded constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Edit Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-     * @param       friend Person
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies(Species species)
+ * Description  Creates an instance of the EditSpecies GUI form and populates 
+ *              the form fields with the provided species data.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       species Species - the species data to be edited
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 public EditSpecies(Species species) {
     this(); // Call default constructor to build GUI
     mySpecies = species;
@@ -109,6 +144,18 @@ public EditSpecies(Species species) {
 
 }
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies(java.awt.Frame parent, boolean modal, Species species)
+ * Description  Creates an instance of the EditSpecies GUI form with the specified
+ *              parent frame, modality, and species data. Centers the form and 
+ *              initializes the form fields with the provided species data.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       parent  java.awt.Frame - the parent frame
+ * @param       modal   boolean - specifies whether dialog blocks user input to other top-level windows
+ * @param       species Species - the species data to be edited
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 public EditSpecies(java.awt.Frame parent, boolean modal, Species species) {
     super(parent, modal);
@@ -120,6 +167,17 @@ public EditSpecies(java.awt.Frame parent, boolean modal, Species species) {
 
 }
 
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       setFormData(Species species)
+ * Description  Populates the form fields with the data from the provided Species 
+ *              object. Sets the name, genus, population, diet, habitat, and 
+ *              predators text fields with the corresponding values from the species.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       species Species - the species data to populate the form fields
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 private void setFormData(Species species) {
     editNameJTextField.setText(species.getName());
     editGenusJTextField.setText(species.getGenus());
@@ -130,16 +188,19 @@ private void setFormData(Species species) {
 }
 
 
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Constructor  AddPerson()--overloaded constructor
-     * Description  Create an instance of the GUI form and sets icon image.
-     *              Used for Edit Person.
-     * Date         4/5/2021
-     * History Log  7/18/2018, 5/7/2020
-     * @author      <i>Niko Culevski</i>
-     * @param       parent Frame
-     * @param       modal  boolean
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Constructor  EditSpecies(java.awt.Frame parent, boolean modal)
+ * Description  Overloaded constructor that creates an instance of the EditSpecies 
+ *              GUI form. Sets the icon image, centers the form on the screen, 
+ *              and sets the default button for the form.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       parent java.awt.Frame - the parent frame of the dialog
+ * @param       modal boolean - specifies whether dialog blocks user input to 
+ *              other top-level windows when shown
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public EditSpecies(java.awt.Frame parent, boolean modal)
     {
         super(parent, modal);
@@ -150,13 +211,15 @@ private void setFormData(Species species) {
         // Set the default button
         this.getRootPane().setDefaultButton(editJButton);                        
     }
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method:      getPerson()
-     * Description: Returns the person added or edited.
-     * Date:        5/12/16
-     * @author      Niko Culevski
-     * @return      Person
-     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       getSpecies()
+ * Description  Retrieves the current species being edited.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @return      Species - the current species being edited
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public Species getSpecies()
     {
         return mySpecies;
@@ -360,25 +423,33 @@ private void setFormData(Species species) {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       quitJButtonActionPerformed()
-     * Description  Dispose the Add form. Uses the Validation class to
-     *              validate input fields.
-     * Date         4/26/2021
-     * @param       evt java.awt.event.ActionEvent
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       quitJButtonActionPerformed()
+ * Description  Closes the EditSpecies dialog.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.ActionEvent - event triggered when the quit 
+ *              button is pressed
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
     {//GEN-HEADEREND:event_quitJButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_quitJButtonActionPerformed
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       addJButtonActionPerformed()
-     * Description  Add new person.
-     * Date         4/26/2021
-     * @param       evt java.awt.event.ActionEvent
-     * @author      <i>Niko Culevski</i>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editJButtonActionPerformed()
+ * Description  Updates the species in the database with the new values from 
+ *              the text fields when the edit button is pressed. Validates 
+ *              input fields before performing the update. Displays appropriate
+ *              messages for successful or failed updates.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.ActionEvent - event triggered when the edit
+ *              button is pressed
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_editJButtonActionPerformed
     {//GEN-HEADEREND:event_editJButtonActionPerformed
 
@@ -443,28 +514,31 @@ private void setFormData(Species species) {
      
     }//GEN-LAST:event_editJButtonActionPerformed
 
-   /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       firstJTextFieldFocusGained()
-     * Description  Highlight firstJTextFieldFocusGained as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editNameJTextFieldFocusGained()
+ * Description  Selects all text in the editNameJTextField when it gains focus.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editNameJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editNameJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editNameJTextFieldFocusGained
     {//GEN-HEADEREND:event_editNameJTextFieldFocusGained
         editNameJTextField.selectAll();
     }//GEN-LAST:event_editNameJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     *<pre>
-     * Method       firstJTextFieldFocusLost()
-     * Description  Change color of firstJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *</pre>
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+ /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editNameJTextFieldFocusLost()
+ * Description  Validates the input in editNameJTextField when it loses focus. 
+ *              Changes the background color based on validation result.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editNameJTextField loses focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editNameJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editNameJTextFieldFocusLost
     {//GEN-HEADEREND:event_editNameJTextFieldFocusLost
         String input = editNameJTextField.getText();
@@ -473,26 +547,31 @@ private void setFormData(Species species) {
         else
             editNameJTextField.setBackground(pink);
     }//GEN-LAST:event_editNameJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       lastJTextFieldFocusGained()
-     * Description  Highlight lastJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editGenusJTextFieldFocusGained()
+ * Description  Selects all text in editGenusJTextField when it gains focus.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editGenusJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editGenusJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editGenusJTextFieldFocusGained
     {//GEN-HEADEREND:event_editGenusJTextFieldFocusGained
         editGenusJTextField.selectAll();
     }//GEN-LAST:event_editGenusJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       lastJTextFieldFocusLost()
-     * Description  Change color of lastJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editGenusJTextFieldFocusLost()
+ * Description  Validates the input in editGenusJTextField when focus is lost.
+ *              Changes the background color based on the validity of the input.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editGenusJTextField loses focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editGenusJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editGenusJTextFieldFocusLost
     {//GEN-HEADEREND:event_editGenusJTextFieldFocusLost
         String input = editGenusJTextField.getText();
@@ -501,26 +580,32 @@ private void setFormData(Species species) {
         else
             editGenusJTextField.setBackground(pink);
     }//GEN-LAST:event_editGenusJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       ageJTextFieldFocusGained()
-     * Description  Highlight ageJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editPopulationJTextFieldFocusGained()
+ * Description  Selects all text in editPopulationJTextField when it gains focus.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editPopulationJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editPopulationJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editPopulationJTextFieldFocusGained
     {//GEN-HEADEREND:event_editPopulationJTextFieldFocusGained
         editPopulationJTextField.selectAll();
     }//GEN-LAST:event_editPopulationJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       ageJTextFieldFocusLost()
-     * Description  Change color of lastJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editPopulationJTextFieldFocusLost()
+ * Description  Validates the input in editPopulationJTextField when it loses 
+ *              focus. Changes the background color based on the validity of 
+ *              the input.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editPopulationJTextField loses focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editPopulationJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editPopulationJTextFieldFocusLost
     {//GEN-HEADEREND:event_editPopulationJTextFieldFocusLost
         String input = editPopulationJTextField.getText();
@@ -529,26 +614,33 @@ private void setFormData(Species species) {
         else
             editPopulationJTextField.setBackground(pink);
     }//GEN-LAST:event_editPopulationJTextFieldFocusLost
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       cityJTextFieldFocusGained()
-     * Description  Highlight cityJTextField as focus is gained.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editHabitatJTextFieldFocusGained()
+ * Description  Selects all text in editHabitatJTextField when it gains focus,
+ *              allowing for easy editing of the habitat input.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editHabitatJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editHabitatJTextFieldFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editHabitatJTextFieldFocusGained
     {//GEN-HEADEREND:event_editHabitatJTextFieldFocusGained
         editHabitatJTextField.selectAll();
     }//GEN-LAST:event_editHabitatJTextFieldFocusGained
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     * Method       cityJTextFieldFocusLost()
-     * Description  Change color of cityJTextField according to valid input.
-     * @parem       java.awt.event.FocusEvent
-     * @author      <i>Niko Culevski</i>
-     * Date         4/5/2021
-     * History log  8/24/2016, 4/3/2020
-    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+  /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editHabitatJTextFieldFocusLost()
+ * Description  Changes the background color of editHabitatJTextField based on 
+ *              the validity of the input. If the input is valid, sets the 
+ *              background color to white; otherwise, sets it to pink.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editHabitatJTextField loses focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     private void editHabitatJTextFieldFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_editHabitatJTextFieldFocusLost
     {//GEN-HEADEREND:event_editHabitatJTextFieldFocusLost
         String input = editHabitatJTextField.getText();
@@ -557,16 +649,48 @@ private void setFormData(Species species) {
         else
             editHabitatJTextField.setBackground(pink);
     }//GEN-LAST:event_editHabitatJTextFieldFocusLost
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editPredatorsJTextFieldActionPerformed()
+ * Description  This should be deleted, no idea how to do that one
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editPredatorsJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void editPredatorsJTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPredatorsJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_editPredatorsJTextFieldActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editPredatorsJTextFieldFocusGained()
+ * Description  Selects all the text in the editPredatorsJTextField when the 
+ *              text field gains focus, allowing for easy editing or replacement 
+ *              of the text.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editPredatorsJTextField gains focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
 
     private void editPredatorsJTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editPredatorsJTextFieldFocusGained
         // TODO add your handling code here:
             editPredatorsJTextField.selectAll();
 
     }//GEN-LAST:event_editPredatorsJTextFieldFocusGained
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method       editPredatorsJTextFieldFocusLost()
+ * Description  Changes the background color of the editPredatorsJTextField 
+ *              based on the validity of the input. Sets the background to white 
+ *              if the input is valid, otherwise sets it to pink.
+ * Date         5/1/2021
+ * History Log  7/18/2018, 5/7/2020
+ * @author      <i>Steven Halla</i>
+ * @param       evt java.awt.event.FocusEvent - event triggered when the 
+ *              editPredatorsJTextField loses focus
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
     private void editPredatorsJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editPredatorsJTextFieldFocusLost
         // TODO add your handling code here:
@@ -578,24 +702,7 @@ private void setFormData(Species species) {
     }//GEN-LAST:event_editPredatorsJTextFieldFocusLost
 
     
-    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Method       predatorsJTextFieldFocusGained()
- * Description  Highlight predatorsJTextField as focus is gained.
- * @param       java.awt.event.FocusEvent
- * @author      <i>Niko Culevski</i>
- * Date         4/5/2021
- * History log  8/24/2016, 4/3/2020
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-                                          
 
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Method       predatorsJTextFieldFocusLost()
- * Description  Change color of predatorsJTextField according to valid input.
- * @param       java.awt.event.FocusEvent
- * @author      <i>Niko Culevski</i>
- * Date         4/5/2021
- * History log  8/24/2016, 4/3/2020
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
