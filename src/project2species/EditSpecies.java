@@ -455,23 +455,58 @@ private void setFormData(Species species) {
     private void editJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_editJButtonActionPerformed
     {//GEN-HEADEREND:event_editJButtonActionPerformed
 
-          if (editNameJTextField.getText().isEmpty()) {
+      if (editNameJTextField.getText().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please enter a name.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     String newName = editNameJTextField.getText().trim();
     String genus = editGenusJTextField.getText().trim();
-    int population;
-    try {
-        population = Integer.parseInt(editPopulationJTextField.getText().trim());
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid population number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+    String populationText = editPopulationJTextField.getText().trim();
     String diet = editDietJTextField.getText().trim();
     String habitat = editHabitatJTextField.getText().trim();
     String predators = editPredatorsJTextField.getText().trim();
+
+    // Validation flags
+    boolean isValid = true;
+    StringBuilder validationMessage = new StringBuilder("Please fix the following errors:\n");
+
+    // Validate that population is a number
+    int population = 0;
+    try {
+        population = Integer.parseInt(populationText);
+    } catch (NumberFormatException e) {
+        isValid = false;
+        validationMessage.append("- Population must be a number.\n");
+    }
+
+    // Validate that name, genus, diet, habitat, and predators contain only letters
+    if (!newName.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Name must contain only letters.\n");
+    }
+    if (!genus.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Genus must contain only letters.\n");
+    }
+    if (!diet.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Diet must contain only letters.\n");
+    }
+    if (!habitat.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Habitat must contain only letters.\n");
+    }
+    if (!predators.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Predators must contain only letters.\n");
+    }
+
+    // If validations fail, show the error messages and return
+    if (!isValid) {
+        JOptionPane.showMessageDialog(this, validationMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -511,8 +546,6 @@ private void setFormData(Species species) {
             exp.printStackTrace();
         }
     }
-
-     
      
     }//GEN-LAST:event_editJButtonActionPerformed
 
