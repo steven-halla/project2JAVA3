@@ -100,6 +100,11 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
     private void initComponents() {
 
         jCheckBox1 = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         speciesListJjScrollPane = new javax.swing.JScrollPane();
         speciesListJList = new javax.swing.JList<>();
         bottomButtonsJPanel = new javax.swing.JPanel();
@@ -127,6 +132,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         newJMenuItem = new javax.swing.JMenuItem();
+        exitJMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         sortByNameAscMenuItem = new javax.swing.JMenuItem();
         sortByPopulationJMenuItem = new javax.swing.JMenuItem();
@@ -134,6 +140,16 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         detailsJMenuItem = new javax.swing.JMenuItem();
 
         jCheckBox1.setText("jCheckBox1");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel3.setText("jLabel3");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -332,6 +348,14 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
             }
         });
         jMenu1.add(newJMenuItem);
+
+        exitJMenuItem.setText("Exit");
+        exitJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(exitJMenuItem);
 
         jMenuBar1.add(jMenu1);
 
@@ -1767,6 +1791,26 @@ private Species findSpeciesByGenus(String genus) {
 
     }//GEN-LAST:event_exitJButtonActionPerformed
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Method: exitJMenuItemActionPerformed
+ * Description: Exits the application when the exit button is clicked. This method 
+ * is triggered by an ActionEvent and calls System.exit(0) to terminate the program.
+ *
+ * @param evt The ActionEvent triggered by clicking the exit button.
+ *
+ * Project: QuizSpecies Quiz
+ * Platform: jdk 1.8.0_241; NetBeans IDE 11.3; macOS Sonoma 14
+ * Course: CS 141
+ * Hours: 8 hours and 45 minutes
+ * Date: 5/17/2024
+ * History Log: 4/4/2016, 11/21/2017
+ * Author: <i>Steven Halla</i>
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    private void exitJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitJMenuItemActionPerformed
+        // TODO add your handling code here:
+                        System.exit(0);
+
+    }//GEN-LAST:event_exitJMenuItemActionPerformed
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method: fetchSpeciesNamesWithPopulation
  * Description: Retrieves the names and population of species from the database.
  * This method executes an SQL query to fetch species names and their populations,
@@ -1846,15 +1890,21 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JMenuItem detailsJMenuItem;
     private javax.swing.JButton editJButton;
     private javax.swing.JButton exitJButton;
+    private javax.swing.JMenuItem exitJMenuItem;
     private javax.swing.JLabel imageMainJLabel;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JMenuItem newJMenuItem;
     private javax.swing.JLabel populationJLabel;

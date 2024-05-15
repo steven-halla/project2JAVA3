@@ -382,107 +382,104 @@ public AddSpecies(Species species) {
     private void addJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addJButtonActionPerformed
     {//GEN-HEADEREND:event_addJButtonActionPerformed
 
-        
-        
-        String message = "Species not added.";
-Connection conn = null;
-PreparedStatement pstmt = null;
+    String message = "Species not added.";
+    Connection conn = null;
+    PreparedStatement pstmt = null;
 
-// Assuming these variables are retrieved from form inputs or another source
-String name = addNameJTextField.getText();
-String genus = addGenusJTextField.getText();
-int population = Integer.parseInt(addPopulationJTextField.getText());
-String diet = addDietJTextField.getText();
-String habitat = addHabitatJTextField.getText();
-String predators = addPredatorsJTextField.getText();
+    // Assuming these variables are retrieved from form inputs or another source
+    String name = addNameJTextField.getText().trim();
+    String genus = addGenusJTextField.getText().trim();
+    String populationText = addPopulationJTextField.getText().trim();
+    String diet = addDietJTextField.getText().trim();
+    String habitat = addHabitatJTextField.getText().trim();
+    String predators = addPredatorsJTextField.getText().trim();
 
-try {
-    // Debug print statements to verify values
-    System.out.println("Name: " + name);
-    System.out.println("Genus: " + genus);
-    System.out.println("Population: " + population);
-    System.out.println("Diet: " + diet);
-    System.out.println("Habitat: " + habitat);
-    System.out.println("Predators: " + predators);
+    // Validation flags
+    boolean isValid = true;
+    StringBuilder validationMessage = new StringBuilder("Please fix the following errors:\n");
 
-    // Initialize database connection
-    conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
-
-    // Prepare SQL statement
-    String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
-    pstmt = conn.prepareStatement(sql);
-    pstmt.setString(1, name);
-    pstmt.setString(2, genus);
-    pstmt.setInt(3, population);
-    pstmt.setString(4, diet);
-    pstmt.setString(5, habitat);
-    pstmt.setString(6, predators);
-
-    // Execute update
-    int affectedRows = pstmt.executeUpdate();
-    if (affectedRows > 0) {
-        message = "Species added successfully!";
-          mainGui.updateSpeciesListJList();
-
-    }
-
-    // Close form if successful
-    this.dispose();
-} catch (SQLException exp) {
-    JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
-    exp.printStackTrace();
-} finally {
+    // Validate that population is a number
+    int population = 0;
     try {
-        if (pstmt != null) pstmt.close();
-        if (conn != null) conn.close();
-    } catch (SQLException exp) {
-        exp.printStackTrace();
+        population = Integer.parseInt(populationText);
+    } catch (NumberFormatException e) {
+        isValid = false;
+        validationMessage.append("- Population must be a number.\n");
     }
-}
+
+    // Validate that name, genus, diet, habitat, and predators contain only letters
+    if (!name.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Name must contain only letters.\n");
+    }
+    if (!genus.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Genus must contain only letters.\n");
+    }
+    if (!diet.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Diet must contain only letters.\n");
+    }
+    if (!habitat.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Habitat must contain only letters.\n");
+    }
+    if (!predators.matches("[a-zA-Z]+")) {
+        isValid = false;
+        validationMessage.append("- Predators must contain only letters.\n");
+    }
+
+    // If validations fail, show the error messages and return
+    if (!isValid) {
+        JOptionPane.showMessageDialog(this, validationMessage.toString(), "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        // Debug print statements to verify values
+        System.out.println("Name: " + name);
+        System.out.println("Genus: " + genus);
+        System.out.println("Population: " + population);
+        System.out.println("Diet: " + diet);
+        System.out.println("Habitat: " + habitat);
+        System.out.println("Predators: " + predators);
+
+        // Initialize database connection
+        conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
+
+        // Prepare SQL statement
+        String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, name);
+        pstmt.setString(2, genus);
+        pstmt.setInt(3, population);
+        pstmt.setString(4, diet);
+        pstmt.setString(5, habitat);
+        pstmt.setString(6, predators);
+
+        // Execute update
+        int affectedRows = pstmt.executeUpdate();
+        if (affectedRows > 0) {
+            message = "Species added successfully!";
+            mainGui.updateSpeciesListJList();
+        }
+
+        // Close form if successful
+        this.dispose();
+    } catch (SQLException exp) {
+        JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
+        exp.printStackTrace();
+    } finally {
+        try {
+            if (pstmt != null) pstmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException exp) {
+            exp.printStackTrace();
+        }
+    }
 
         
         
-        
- 
-//  
-//   String message = "Species not added.";
-//Connection conn = null;
-//PreparedStatement pstmt = null;
-//try {
-//    // Validate and retrieve data as previously shown...
-//
-//    // Initialize database connection
-//    conn = DriverManager.getConnection(MySQLConnection.DB_URL, MySQLConnection.USER, MySQLConnection.PASS);
-//
-//    // Prepare SQL statement
-//    String sql = "INSERT INTO SpeciesTable (name, genus, population, diet, habitat, predators) VALUES (?, ?, ?, ?, ?, ?)";
-//    pstmt = conn.prepareStatement(sql);
-//    pstmt.setString(1, name);
-//    pstmt.setString(2, genus);
-//    pstmt.setInt(3, population);
-//    pstmt.setString(4, diet);
-//    pstmt.setString(5, habitat);
-//    pstmt.setString(6, predators);
-//
-//    // Execute update
-//    int affectedRows = pstmt.executeUpdate();
-//    if (affectedRows > 0) {
-//        message = "Species added successfully!";
-//    }
-//
-//    // Close form if successful
-//    this.dispose();
-//} catch (SQLException exp) {
-//    JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
-//    exp.printStackTrace();
-//} finally {
-//    try {
-//        if (pstmt != null) pstmt.close();
-//        if (conn != null) conn.close();
-//    } catch (SQLException exp) {
-//        exp.printStackTrace();
-//    }
-//}
 
      
      
