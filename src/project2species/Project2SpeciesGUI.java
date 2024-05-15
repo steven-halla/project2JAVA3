@@ -105,6 +105,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
+        jMenu4 = new javax.swing.JMenu();
         speciesListJjScrollPane = new javax.swing.JScrollPane();
         speciesListJList = new javax.swing.JList<>();
         bottomButtonsJPanel = new javax.swing.JPanel();
@@ -133,6 +134,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jMenu1 = new javax.swing.JMenu();
         newJMenuItem = new javax.swing.JMenuItem();
         exitJMenuItem = new javax.swing.JMenuItem();
+        printFormJMenuItem = new javax.swing.JMenuItem();
+        printJMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         sortByNameAscMenuItem = new javax.swing.JMenuItem();
         sortByPopulationJMenuItem = new javax.swing.JMenuItem();
@@ -141,6 +144,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         AddJMenuItem = new javax.swing.JMenuItem();
         editJMenuItem = new javax.swing.JMenuItem();
         deleteJMenuItem = new javax.swing.JMenuItem();
+        helpJMenu = new javax.swing.JMenu();
+        aboutJMenuItem = new javax.swing.JMenuItem();
 
         jCheckBox1.setText("jCheckBox1");
 
@@ -153,6 +158,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
+
+        jMenu4.setText("jMenu4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -328,6 +335,8 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
                 .addGap(15, 15, 15))
         );
 
+        imageMainJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/alions.png"))); // NOI18N
+
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 255, 204));
         jLabel1.setText("Endangered Species");
@@ -359,6 +368,22 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
             }
         });
         jMenu1.add(exitJMenuItem);
+
+        printFormJMenuItem.setText("Print Form");
+        printFormJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printFormJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(printFormJMenuItem);
+
+        printJMenuItem.setText("Print");
+        printJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(printJMenuItem);
 
         jMenuBar1.add(jMenu1);
 
@@ -421,6 +446,18 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
 
         jMenuBar1.add(jMenu3);
 
+        helpJMenu.setText("Help");
+
+        aboutJMenuItem.setText("About");
+        aboutJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutJMenuItemActionPerformed(evt);
+            }
+        });
+        helpJMenu.add(aboutJMenuItem);
+
+        jMenuBar1.add(helpJMenu);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -452,21 +489,23 @@ public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConne
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(171, 171, 171))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(imageMainJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(searchJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(imageMainJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(speciesListJjScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(speciesListJjScrollPane))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bottomButtonsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -2024,6 +2063,31 @@ private Species findSpeciesByGenus(String genus) {
         }
     }
     }//GEN-LAST:event_deleteJMenuItemActionPerformed
+    /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     * Method       printJMenuItemActionPerformed()
+     * Description  Event handler to print the for as a GUI. Calls the
+     *              PrintUtilities class printComponent method.
+     * @author      <i>Niko Culevski</i>
+     * Date         4/5/2021
+     * History Log  7/18/2018, 4/3/2020
+    *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+    private void printFormJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printFormJMenuItemActionPerformed
+        // TODO add your handling code here:
+                PrintUtilities.printComponent(this);
+
+    }//GEN-LAST:event_printFormJMenuItemActionPerformed
+
+    private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printJMenuItemActionPerformed
+        // TODO add your handling code here:
+                        PrintUtilities.printComponent(this);
+
+    }//GEN-LAST:event_printJMenuItemActionPerformed
+
+    private void aboutJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutJMenuItemActionPerformed
+        // TODO add your handling code here:
+          About aboutWindow = new About(this, true);
+        aboutWindow.setVisible(true);
+    }//GEN-LAST:event_aboutJMenuItemActionPerformed
 /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * Method: fetchSpeciesNamesWithPopulation
  * Description: Retrieves the names and population of species from the database.
@@ -2099,6 +2163,7 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JTextField PopulationJTextField;
     private javax.swing.JLabel PredatorsJLabel;
     private javax.swing.JTextField PredatorsJTextField;
+    private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.JButton addJButton;
     private javax.swing.JPanel bottomButtonsJPanel;
     private javax.swing.JButton deleteJButton;
@@ -2108,6 +2173,7 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JMenuItem editJMenuItem;
     private javax.swing.JButton exitJButton;
     private javax.swing.JMenuItem exitJMenuItem;
+    private javax.swing.JMenu helpJMenu;
     private javax.swing.JLabel imageMainJLabel;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
@@ -2116,6 +2182,7 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2125,6 +2192,8 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JLabel nameOfSpeceiesJLabel;
     private javax.swing.JMenuItem newJMenuItem;
     private javax.swing.JLabel populationJLabel;
+    private javax.swing.JMenuItem printFormJMenuItem;
+    private javax.swing.JMenuItem printJMenuItem;
     private javax.swing.JTextField searchJTextField;
     private javax.swing.JMenuItem sortByNameAscMenuItem;
     private javax.swing.JMenuItem sortByPopulationJMenuItem;
