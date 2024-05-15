@@ -32,8 +32,11 @@ public class AddSpecies extends javax.swing.JDialog
     private int population;
     private String habitat;
     private String predators;
+    
 
     private String diet;
+    private Project2SpeciesGUI mainGui;
+
     private final Color white = Color.WHITE; // Default background color for input textfield
     private final Color pink = Color.PINK;
      // Background color for bad input textfield
@@ -100,6 +103,13 @@ public AddSpecies(Species species) {
         // Set the default button
         this.getRootPane().setDefaultButton(addJButton);                        
     }
+    
+    public AddSpecies(Project2SpeciesGUI mainGui, boolean modal) {
+    super((java.awt.Frame) null, modal);
+    this.mainGui = mainGui;
+    initComponents();
+}
+
     /**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * Method:      getPerson()
      * Description: Returns the person added or edited.
@@ -378,6 +388,8 @@ try {
     int affectedRows = pstmt.executeUpdate();
     if (affectedRows > 0) {
         message = "Species added successfully!";
+          mainGui.updateSpeciesListJList();
+
     }
 
     // Close form if successful

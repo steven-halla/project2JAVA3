@@ -16,16 +16,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import static project2species.MySQLConnection.DB_URL;
 import static project2species.MySQLConnection.PASS;
 import static project2species.MySQLConnection.USER;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 
-
-public class Project2SpeciesGUI extends javax.swing.JFrame {
+public class Project2SpeciesGUI extends javax.swing.JFrame implements MySQLConnection{
     
         ArrayList<String[]> speciesData = fetchSpeciesNamesWithPopulation();
 
@@ -33,6 +33,9 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     private  ArrayList<Species> animals = new ArrayList<Species>();
     private Species myPerson = new Species();
       private int currentName = 1, sizeOfDB;
+      
+//      public DefaultListModel speciesModel = new DefaultListModel();
+      //build constructor in this class
 
 
 
@@ -90,6 +93,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         searchJTextField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        newJMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         sortByNameAscMenuItem = new javax.swing.JMenuItem();
         sortByPopulationJMenuItem = new javax.swing.JMenuItem();
@@ -270,6 +274,15 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
+
+        newJMenuItem.setText("New");
+        newJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(newJMenuItem);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Sort");
@@ -424,7 +437,7 @@ public class Project2SpeciesGUI extends javax.swing.JFrame {
     return names;
 }
 
-    private void updateSpeciesListJList() {
+    public void updateSpeciesListJList() {
     DefaultListModel<String> model = new DefaultListModel<>();
     ArrayList<String> speciesNames = fetchSpeciesNames();
     for (String name : speciesNames) {
@@ -1109,6 +1122,47 @@ private Species findSpeciesByGenus(String genus) {
     updateSpeciesListJList(speciesData);
     }//GEN-LAST:event_sortByPopulationJMenuItemActionPerformed
 
+    private void newJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newJMenuItemActionPerformed
+        // TODO add your handling code here:
+            // Define an array of options
+    Object[] options = {"Java", "Python", "C++"};
+    
+    // Create a JComboBox with the options
+    JComboBox<Object> comboBox = new JComboBox<>(options);
+    
+    // Display a dialog box with the JComboBox
+    int choice = JOptionPane.showConfirmDialog(
+        this, // parentComponent - use "this" if this method is within a JFrame or JPanel
+        comboBox, // component to display in the dialog
+        "Choose a programming language:", // message
+        JOptionPane.OK_CANCEL_OPTION, // option type
+        JOptionPane.QUESTION_MESSAGE // message type
+    );
+
+    // Check if the user clicked OK
+    if (choice == JOptionPane.OK_OPTION) {
+        // Get the selected item from the JComboBox
+        String selectedLanguage = (String) comboBox.getSelectedItem();
+        
+        // Handle the selected option
+        switch (selectedLanguage) {
+            case "Java":
+                JOptionPane.showMessageDialog(this, "You chose Java. That's great! Keep coding!");
+                break;
+            case "Python":
+                JOptionPane.showMessageDialog(this, "You chose Python. That's awesome!");
+                break;
+            case "C++":
+                JOptionPane.showMessageDialog(this, "You chose C++. That's powerful!");
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Invalid selection!");
+                break;
+        }
+    }
+        
+    }//GEN-LAST:event_newJMenuItemActionPerformed
+
     private ArrayList<String[]> fetchSpeciesNamesWithPopulation() {
     ArrayList<String[]> speciesData = new ArrayList<>();
     String query = "SELECT name, population FROM SpeciesTable";  
@@ -1166,6 +1220,7 @@ private Species findSpeciesByGenus(String genus) {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nameOfSpeceiesJLabel;
+    private javax.swing.JMenuItem newJMenuItem;
     private javax.swing.JLabel populationJLabel;
     private javax.swing.JTextField searchJTextField;
     private javax.swing.JMenuItem sortByNameAscMenuItem;
